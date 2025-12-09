@@ -3,6 +3,11 @@
 Cinemmax Cinemas is a web application for browsing movies, checking showtimes, picking seats, and reserving cinema tickets.
 The project is built as my final thesis and includes a Spring Boot backend with a JWT-secured API and an Angular frontend.
 
+🎥 Demo Video
+
+Watch the project presentation on YouTube:  
+👉 https://youtu.be/xFfKVPQKmaI
+
 ⚠️ Important (Security)
 
 To run the backend locally, you must set a JWT secret as an environment variable.
