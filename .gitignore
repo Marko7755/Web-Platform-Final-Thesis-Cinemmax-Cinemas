@@ -1,0 +1,65 @@
+############################
+# IntelliJ IDEA
+############################
+.idea/
+*.iws
+*.iml
+*.ipr
+
+############################
+# Java / Maven / Spring Boot
+############################
+
+# Maven target directory
+target/
+
+# Logs
+*.log
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+# Class files
+*.class
+
+# Build output
+out/
+
+############################
+# Angular / Node.js
+############################
+
+# Dependencies
+node_modules/
+
+# Angular build outputs
+dist/
+build/
+.tmp/
+
+# Angular environment files (if needed)
+# src/environments/environment.ts
+# src/environments/environment.prod.ts
+
+# VS Code settings (if someone opens the frontend in VS Code)
+.vscode/
+
+############################
+# OS-generated files
+############################
+Thumbs.db
+.DS_Store
+
+# Environment variable files (security!)
+.env
+*.env
+.env.local
+.env.production
+.env.development
+
+
+############################
+# Personal ignores
+############################
+Database/z.txt
