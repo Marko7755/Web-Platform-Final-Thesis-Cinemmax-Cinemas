@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,11 @@ public class JwtService {
 
     @Value("${jwt.base64-secret}")
     private String secret;
+
+    @PostConstruct
+    public void printSecret() {
+        System.out.println("JWT secret = " + secret.substring(0, 5) + "*****");
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
