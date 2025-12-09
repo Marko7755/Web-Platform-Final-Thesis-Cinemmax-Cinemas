@@ -1,4 +1,0 @@
-m n tablica jer film predstava moze biti 2d 3d i to -r
-termini predstave - r
-datum kada dolazi film u kino ako vec ne postoji i kada odlazi iz kina - r
-tablica za prikaz predstava u razlicitim kinima, npr film s id 2 u kinu id 3 i 4, u ostalima ga nema npr -r
