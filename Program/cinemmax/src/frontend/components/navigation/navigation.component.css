@@ -1,0 +1,504 @@
+/* ===== General ===== */
+a {
+  text-decoration: none;
+  color: white;
+  font-size: larger;
+}
+
+.setWidth {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.logo {
+  height: 60px;
+}
+
+/* lock body scroll when mobile sheet is open */
+.no-scroll {
+  overflow: hidden;
+}
+
+/* ===== Top Bars ===== */
+.secondaryNav {
+  background-color: #1337B4;
+  display: flex;
+  padding: 5px 0;
+}
+
+.secondaryNav .content {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.secondaryNav .loginBtn {
+  background-color: #FF5722;
+  padding: 2px 15px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 4px;
+}
+
+/* Header */
+.header {
+  background-color: #041D57;
+  display: flex;
+  padding: 20px 0;
+}
+
+.header .content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header .content .logoCont {
+  flex: 0 0 20%;
+}
+
+.header .content .linksCont {
+  flex: 0 0 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+/* ===== Dropdown (Admin + User base) ===== */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.admin-link {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  padding: 6px 12px;
+  background: transparent;
+  border: none !important;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.admin-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: none !important;
+}
+
+.admin-link .caret {
+  font-size: 12px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+  z-index: 1000;
+  width: 240px;
+  padding: 8px 0;
+}
+
+.dropdown-sub {
+  position: relative;
+}
+
+.submenu-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  background: #fff;
+  cursor: pointer;
+  border: 0;
+  transition: background-color .2s ease;
+}
+
+.dropdown-sub+.dropdown-sub .submenu-title {
+  border-top: 1px solid #eee;
+}
+
+.dropdown-sub:hover .submenu-title,
+.submenu-title:focus {
+  background: #f4f4f4;
+  outline: none;
+}
+
+.submenu-title .chev {
+  font-size: 12px;
+  line-height: 1;
+  transition: transform .2s ease;
+}
+
+.dropdown-sub-content {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 6px 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+  z-index: 1001;
+}
+
+.dropdown-sub-content a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: background-color .2s ease, padding-left .2s ease;
+}
+
+.dropdown-sub-content a:hover {
+  background: #f4f4f4;
+  padding-left: 18px;
+}
+
+/* ===== Off-canvas (mobile) ===== */
+.hamburgerMenu .content {
+  /* hidden by default; enabled on mobile query */
+  display: none;
+}
+
+/* ===== Desktop (hover/focus) ===== */
+@media (min-width: 992px) {
+
+  /* Open main menu (ADMIN) on hover/focus within */
+  .dropdown:hover .dropdown-content,
+  .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+
+  /* Open submenus on hover or keyboard focus */
+  .dropdown-sub:hover .dropdown-sub-content,
+  .submenu-title:focus+.dropdown-sub-content {
+    display: block;
+  }
+
+  /* Prevent flicker between columns */
+  .dropdown-sub-content::before {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 0;
+    width: 10px;
+    height: 100%;
+  }
+
+  /* Angular "open" classes are ignored on desktop (for admin mobile logic) */
+  .dropdown-content.open,
+  .dropdown-sub-content.open {
+    display: none;
+  }
+}
+
+/* ===== Mobile & Tablet (tap/accordion) ===== */
+@media (max-width: 991px) {
+  .setWidth {
+    width: 85%;
+  }
+
+  /* Hide the big links row on small screens; show burger */
+  .header .content .linksCont {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+    margin-left: auto;
+    font-size: 36px;
+  }
+
+  /* Admin dropdown becomes stacked popover */
+  .dropdown-content {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: auto;
+    display: none;
+  }
+
+  .dropdown-content.open {
+    display: block;
+  }
+
+  /* Submenus become in-flow collapsibles */
+  .dropdown-sub-content {
+    position: static;
+    border: 0;
+    border-top: 1px solid #eee;
+    box-shadow: none;
+    padding: 4px 0 8px;
+    min-width: 100%;
+    display: none;
+  }
+
+  .dropdown-sub-content.open {
+    display: block;
+  }
+
+  .submenu-title .chev {
+    transform: rotate(0deg);
+  }
+
+  .submenu-title[aria-expanded="true"] .chev {
+    transform: rotate(180deg);
+  }
+
+  /* Mobile Sheet (off-canvas style) */
+  .hamburgerMenu {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 1300;
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  .hamburgerMenu .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(420px, 90vw);
+    height: 100%;
+    background: #041D57;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 18px 18px 28px;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, .35);
+    overflow-y: auto;
+  }
+
+  .hamburgerMenu .content a {
+    font-size: 18px;
+  }
+
+  .hamburgerMenu .content hr {
+    border: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .sheet-close {
+    align-self: flex-end;
+    background: transparent;
+    color: #fff;
+    border: 0;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 1;
+  }
+}
+
+/* ===== Very Small Phones ===== */
+@media (max-width: 600px) {
+  .setWidth {
+    width: 95%;
+  }
+}
+
+/* ===== User Dropdown (Hello {name}) ===== */
+.visually-hidden {
+  position: absolute !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: -1px !important;
+}
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-trigger {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  padding: 6px 12px;
+  background: transparent;
+  border: none !important;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color .2s ease, color .2s ease;
+}
+
+.user-trigger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.user-trigger .hello {
+  font-weight: 400;
+}
+
+.user-trigger .username {
+  font-weight: 700;
+}
+
+.user-trigger .hello,
+.user-trigger .username {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.user-trigger .caret {
+  font-size: 12px;
+  margin-left: 2px;
+  opacity: .9;
+}
+
+.user-menu {
+  width: 240px;
+  padding: 8px 0;
+}
+
+.user-menu a,
+.user-menu .logout-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  color: #333;
+  font-size: 14px;
+  background: transparent;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .2s ease, padding-left .2s ease;
+}
+
+.user-menu a:hover,
+.user-menu .logout-link:hover {
+  background: #f4f4f4;
+  padding-left: 18px;
+}
+
+.user-menu .menu-sep {
+  border: 0;
+  height: 1px;
+  background: #eee;
+  margin: 6px 0;
+}
+
+/* Ikonice u bojama */
+.user-menu a i,
+.user-menu .logout-link i {
+  color: #1337B4;
+  opacity: 0.95;
+  font-size: 18px;
+  transition: color .2s ease, transform .2s ease;
+}
+
+.user-menu a:hover i,
+.user-menu .logout-link:hover i {
+  color: #FF5722;
+  transform: translateX(2px);
+}
+
+/* Mobile/Tablet: user dropdown otvara se checkboxom */
+@media (max-width: 991px) {
+  .user-trigger {
+    background: #0b2a7a;
+    border-radius: 8px;
+    padding: 8px 12px;
+  }
+
+  .user-dropdown .user-toggle:checked~.dropdown-content {
+    display: block;
+  }
+
+  .user-dropdown .user-toggle:checked+.user-trigger .caret {
+    transform: rotate(180deg);
+    transition: transform .2s ease;
+  }
+}
+
+/* Desktop: USER dropdown klik (checkbox), ne hover */
+@media (min-width: 992px) {
+  /* poništi globalni hover-open SAMO za user-dropdown */
+  /*   .user-dropdown:hover .dropdown-content,
+  .user-dropdown:focus-within .dropdown-content {
+    display: none;
+  } */
+
+  /* otvori user meni kad je checkbox čekiran */
+  /* .user-dropdown .user-toggle:checked ~ .dropdown-content {
+    display: block;
+  } */
+
+  /* rotiraj strelicu kad je otvoreno */
+  .user-dropdown .user-toggle:checked+.user-trigger .caret {
+    transform: rotate(180deg);
+    transition: transform .2s ease;
+  }
+}
+
+/* Spriječi underline i style leak na gumbovima u meniju */
+.logout-link {
+  text-decoration: none !important;
+  background: transparent !important;
+}
+
+/* Desktop: USER dropdown otvaraj na hover (kao admin) */
+@media (min-width: 992px) {
+
+  /* Otvori na hover SAMO dok checkbox NIJE čekiran */
+  .user-dropdown:hover .user-toggle:not(:checked)~.dropdown-content,
+  .user-dropdown:focus-within .user-toggle:not(:checked)~.dropdown-content {
+    display: block;
+  }
+
+  /* Otvori i kad je checkbox čekiran (klik otvaranje ako želiš) */
+  .user-dropdown .user-toggle:checked~.dropdown-content {
+    display: block;
+  }
+
+  /* Zatvori na silu kad je u 'closing' stanju (klik na stavku) */
+  .user-dropdown.closing .dropdown-content {
+    display: none !important;
+  }
+
+  /* Rotacija strelice kad je otvoreno (hover ili checked) */
+  .user-dropdown:hover .user-toggle:not(:checked)+.user-trigger .caret,
+  .user-dropdown:focus-within .user-toggle:not(:checked)+.user-trigger .caret,
+  .user-dropdown .user-toggle:checked+.user-trigger .caret {
+    transform: rotate(180deg);
+    transition: transform .2s ease;
+  }
+}

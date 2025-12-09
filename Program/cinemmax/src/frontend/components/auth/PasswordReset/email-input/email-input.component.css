@@ -1,0 +1,225 @@
+.main {
+  background-color: #040D2C; /* main(body) color */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+}
+
+.logo-container {
+  background-color: #041D57; /* primary nav */
+  padding: 12px 20px;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 160px;
+  height: auto;
+}
+
+.login-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.login-box h2 {
+  margin-bottom: 10px;
+  color: black;
+  font-size: 22px;
+  text-align: center;
+}
+
+.login-box label {
+  font-weight: 500;
+  color: #333;
+}
+
+.login-box input {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #eaf1ff;
+  font-size: 16px;
+}
+
+.login-box .error {
+  color: red;
+  font-size: 14px;
+}
+
+.login-box button {
+  background-color: #FF5722; /* login btn */
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.login-box button:disabled {
+  background-color: #ffab91;
+}
+
+.login-box button:hover:not(:disabled) {
+  background-color: #e64a19;
+}
+
+.success-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px 26px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 48px;
+  color: #4CAF50;
+  background-color: #e6f5ea;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-box h2 {
+  font-size: 22px;
+  color: #041D57;
+  margin: 0;
+}
+
+.success-box p {
+  font-size: 15px;
+  color: #444;
+  margin: 0;
+}
+
+.success-box button {
+  margin-top: 12px;
+  background-color: #FF5722;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.success-box button:hover {
+  background-color: #e64a19;
+}
+
+.loadingSpinner {
+  border: 4px solid rgba(0, 123, 255, 0.2); 
+  border-top: 4px solid #007bff;            
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 10px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+@media (min-width: 601px) and (max-width: 991px) {
+  .container {
+    width: 85%;
+  }
+
+  .login-box {
+    padding: 25px 20px;
+  }
+
+  .logo {
+    max-width: 140px;
+  }
+  
+   .success-box {
+    padding: 25px 20px;
+  }
+
+  .success-box h2 {
+    font-size: 20px;
+  }
+
+  .success-icon {
+    font-size: 44px;
+    width: 66px;
+    height: 66px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+  }
+
+  .login-box {
+    padding: 20px 15px;
+  }
+
+  .login-box h2 {
+    font-size: 18px;
+  }
+
+  .logo {
+    max-width: 120px;
+  }
+
+  .success-box {
+    padding: 20px 15px;
+  }
+
+  .success-box h2 {
+    font-size: 18px;
+  }
+
+  .success-box p {
+    font-size: 14px;
+  }
+
+  .success-icon {
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+  }
+
+  .success-box button {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+
+}

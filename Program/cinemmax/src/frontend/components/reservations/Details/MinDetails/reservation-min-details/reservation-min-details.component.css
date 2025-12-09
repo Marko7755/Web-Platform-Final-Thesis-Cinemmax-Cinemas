@@ -1,0 +1,269 @@
+/* === VARS scoped na komponentu === */
+:host {
+    --bg: #071225;
+    --surface: #0E1B36;
+    --surface-2: #122449;
+
+    /* INDIGO paleta kartica */
+    --card-base: #0C1731;
+    --card-deep: #151F45;
+    --indigo: #6366F1;
+    --indigo-2: #8B92FF;
+
+    --brand: #3B82F6;
+    --brand-2: #60A5FA;
+    /* seat ikonica */
+
+    --highlight: #FFB74D;
+    /* naslovi/podnaslovi */
+    --text: #E8F0FF;
+    --muted: #9DB3D9;
+    --line: rgba(99, 102, 241, .28);
+}
+
+/* ====== PAGE WRAP ====== */
+.reservations-wrap {
+    padding: 24px 0 44px;
+}
+
+/* ====== PAGE HEADER ====== */
+.page-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.2;
+    color: var(--highlight, #FFB74D);
+    letter-spacing: .2px;
+    text-shadow: 0 0 12px rgba(255, 183, 77, .25);
+}
+
+.count-badge {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, .12);
+    color: var(--indigo-2, #8B92FF);
+    border: 1px solid var(--line, rgba(99, 102, 241, .28));
+}
+
+.page-sub {
+    margin: 0 0 18px;
+    font-size: 13px;
+    color: var(--muted, #9DB3D9);
+}
+
+/* ====== LAYOUT ====== */
+.two-col {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width:992px) {
+    .two-col {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.col {
+    min-width: 0;
+}
+
+/* ====== SECTION HEAD ====== */
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(255, 183, 77, .08), rgba(255, 183, 77, .04));
+    border: 1px solid rgba(255, 183, 77, .3);
+}
+
+.section-title {
+    margin: 0;
+    font-size: 18px;
+    color: var(--highlight, #FFB74D);
+    letter-spacing: .2px;
+    text-shadow: 0 0 8px rgba(255, 183, 77, .2);
+}
+
+.section-count {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, .12);
+    color: var(--indigo-2, #8B92FF);
+    border: 1px solid var(--line, rgba(99, 102, 241, .28));
+}
+
+/* ====== EMPTY ====== */
+.empty {
+    background: rgba(14, 27, 54, .6);
+    border: 1px dashed rgba(255, 183, 77, .35);
+    color: var(--text, #E8F0FF);
+    border-radius: 14px;
+    padding: 22px 16px;
+    text-align: left;
+}
+
+.empty.small {
+    padding: 18px 14px;
+}
+
+.empty p {
+    margin: 0;
+    opacity: .9;
+}
+
+/* ====== GRID ====== */
+.grid {
+    display: grid;
+    gap: 16px;
+}
+
+@media (min-width:600px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ====== CARD (ACTIVE) – INDIGO ====== */
+.res-card {
+    position: relative;
+    color: var(--text, #E8F0FF);
+    border-radius: 16px;
+    padding: 16px;
+    cursor: pointer;
+    outline: none;
+    background:
+        radial-gradient(120% 120% at 0% 0%, rgba(99, 102, 241, .16) 0%, rgba(20, 31, 69, .96) 60%),
+        linear-gradient(180deg, var(--card-base, #0C1731), var(--card-deep, #151F45));
+    border: 1px solid var(--line, rgba(99, 102, 241, .28));
+    box-shadow: 0 8px 22px rgba(0, 0, 0, .35);
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .2s ease;
+}
+
+.res-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(139, 146, 255, .55);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .4), 0 0 0 1px rgba(139, 146, 255, .08) inset;
+    background:
+        radial-gradient(120% 120% at 0% 0%, rgba(139, 146, 255, .24) 0%, rgba(20, 31, 69, .98) 60%),
+        linear-gradient(180deg, #0F1C40, var(--card-deep, #151F45));
+}
+
+.res-card:focus-visible {
+    box-shadow: 0 0 0 3px rgba(139, 146, 255, .35), 0 10px 24px rgba(0, 0, 0, .35);
+    border-color: rgba(139, 146, 255, .65);
+}
+
+/* ====== CARD (PAST) ====== */
+.res-card.past {
+    opacity: .95;
+    background:
+        radial-gradient(120% 140% at 0% 0%, rgba(148, 163, 184, .10) 0%, rgba(18, 32, 70, .95) 60%),
+        linear-gradient(180deg, var(--card-base, #0C1731), var(--card-deep, #151F45));
+    border-color: rgba(148, 163, 184, .28);
+}
+
+.res-card.past:hover {
+    border-color: rgba(148, 163, 184, .45);
+    box-shadow: 0 12px 26px rgba(0, 0, 0, .35);
+}
+
+/* ====== HEAD ====== */
+.res-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.res-head::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(139, 146, 255, 0), rgba(139, 146, 255, .18), rgba(139, 146, 255, 0));
+    opacity: .6;
+}
+
+.title {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.badge {
+    font-size: 12px;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, .14);
+    border: 1px solid rgba(139, 146, 255, .35);
+    color: var(--indigo-2, #8B92FF);
+}
+
+/* ====== BODY ====== */
+.res-body {
+    display: grid;
+    gap: 10px;
+    padding-top: 6px;
+}
+
+.line {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 28px;
+}
+
+.line i {
+    font-size: 16px;
+    color: #CFE0FF;
+    opacity: .95;
+}
+
+.value {
+    color: var(--text, #E8F0FF);
+    font-size: 14px;
+}
+
+/* seat ikonica – koristi fallback ako var nije dostupna */
+.line .bi-armchair {
+    color: var(--brand-2, #60A5FA);
+}
+
+/* ====== CONTAINER WIDTHS ====== */
+.container {
+    width: 75%;
+    margin: 0 auto;
+}
+
+@media (max-width:600px) {
+    .container {
+        width: 95%;
+    }
+}
+
+@media (min-width:601px) and (max-width:991px) {
+    .container {
+        width: 85%;
+    }
+}

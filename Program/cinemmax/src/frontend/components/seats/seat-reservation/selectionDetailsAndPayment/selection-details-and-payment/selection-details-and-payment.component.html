@@ -1,0 +1,120 @@
+<main class="setWidth">
+  <section class="review-container" *ngIf="showTimeDetails as d; else loading">
+    <h2 class="page-title"><i class="bi bi-receipt"></i> Review & Pay</h2>
+
+    <div class="review-grid">
+      <!-- LEFT: MAIN INFO -->
+      <div class="col col--main">
+        <div class="stack">
+
+          <div class="panel">
+            <h3 class="panel-title"><i class="bi bi-film"></i> Film</h3>
+            <div class="kv">
+              <span class="label">Title</span>
+              <span class="value">{{ d.film.name }}</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 class="panel-title"><i class="bi bi-calendar-event"></i> Date & Time</h3>
+            <div class="kv">
+              <span class="label"><i class="bi bi-calendar3"></i> Date</span>
+              <span class="value">{{ d.showTime | date:'EEEE, d. MMM y' }}</span>
+            </div>
+            <div class="kv">
+              <span class="label"><i class="bi bi-clock"></i> Time</span>
+              <span class="value">{{ d.showTime | date:'HH:mm' }}</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 class="panel-title"><i class="bi bi-building"></i> Cinema</h3>
+            <div class="kv">
+              <span class="label"><i class="bi bi-geo-alt"></i> Location</span>
+              <span class="value">{{ d.cinema.location }}</span>
+            </div>
+            <div class="kv">
+              <span class="label"><i class="bi bi-ticket-perforated"></i> Name</span>
+              <span class="value">{{ d.cinema.name }}</span>
+            </div>
+            <div class="kv">
+              <span class="label"><i class="bi bi-door-closed"></i> Hall</span>
+              <span class="value">Hall {{ d.hall.number }}</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3 class="panel-title"><i class="bi bi-badge-hd"></i> Show Type</h3>
+            <div class="kv">
+              <span class="label">Type</span>
+              <span class="value type-pill">{{ d.showType.type }}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: SUMMARY / PRICE -->
+      <aside class="col col--summary">
+        <div class="summary">
+
+          <div class="panel seats-panel">
+            <h3 class="panel-title"><i class="bi bi-grid-3x3-gap"></i> Selected Seats</h3>
+            <div class="seats-wrap" *ngIf="seatsToReserve?.length; else noSeats">
+              <span class="seat-chip" *ngFor="let s of seatsToReserve">
+                {{ s.rowLetter }}{{ s.seatNumber }}
+              </span>
+            </div>
+            <ng-template #noSeats>
+              <p class="muted">No seats selected.</p>
+            </ng-template>
+          </div>
+
+          <div class="panel price-panel">
+            <h3 class="panel-title"><i class="bi bi-cash-coin"></i> Price</h3>
+
+            <ng-container *ngIf="d.pricing as p">
+              <div class="kv">
+                <span class="label">Base price</span>
+                <span class="value">{{ p.base | currency:'EUR':'symbol':'1.2-2' }}</span>
+              </div>
+
+              <div class="kv" *ngIf="p.additional as add">
+                <span class="label">Additional ({{ d.showType.type }})</span>
+                <span class="value">{{ add | currency:'EUR':'symbol':'1.2-2' }}</span>
+              </div>
+
+              <div class="kv">
+                <span class="label">Quantity</span>
+                <span class="value">{{ seatsToReserve.length }}</span>
+              </div>
+
+              <div class="kv total">
+                <span class="label">Total</span>
+                <span class="value total-value">
+                  {{ (p.finalPrice * seatsToReserve.length) | currency:'EUR':'symbol':'1.2-2' }}
+                </span>
+              </div>
+            </ng-container>
+
+            <div class="actions">
+              <button class="btn back" type="button" onclick="history.back()">
+                <i class="bi bi-arrow-left"></i> Back
+              </button>
+              <button class="btn pay" type="button" [disabled]="!seatsToReserve.length" [routerLink]="['/checkout/', showTimeId]" [queryParams]="{ seatIds }">
+                <i class="bi bi-credit-card"></i>Go To Payement
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <ng-template #loading>
+    <section class="review-container">
+      <p class="loading"><i class="bi bi-arrow-repeat"></i> Loading details…</p>
+    </section>
+  </ng-template>
+</main>

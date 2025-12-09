@@ -1,0 +1,80 @@
+<main class="main">
+  <div class="container setWidth">
+    <form class="showtime-box" [formGroup]="showTimeForm" (ngSubmit)="submitShowTime()">
+      <h2>Add Show Time</h2>
+
+      <!-- Cinema (grouped by location) -->
+      <label for="cinema_select">Cinema</label>
+      <select
+        id="cinema_select"
+        formControlName="cinemaId"
+        [class.invalid]="showTimeForm.get('cinemaId')?.touched && showTimeForm.get('cinemaId')?.invalid"
+        aria-describedby="cinema_help">
+        <option [ngValue]="null" disabled>Select a cinema</option>
+        <optgroup *ngFor="let group of groupedCinemas" [label]="group.location">
+          <option *ngFor="let cinema of group.cinemas" [ngValue]="cinema.id">
+            {{ cinema.location }} - {{ cinema.name }}
+          </option>
+        </optgroup>
+      </select>
+      <div id="cinema_help" class="error" *ngIf="showTimeForm.get('cinemaId')?.touched">
+        <span *ngIf="showTimeForm.get('cinemaId')?.errors?.['required']">Cinema is required</span>
+      </div>
+
+      <!-- Hall (depends on selected cinema) -->
+      <ng-container *ngIf="halls$ | async as halls">
+        <label for="hall_select">Hall</label>
+        <select
+          id="hall_select"
+          formControlName="hallId"
+          [class.invalid]="showTimeForm.get('hallId')?.touched && showTimeForm.get('hallId')?.invalid"
+          aria-describedby="hall_help">
+          <option [ngValue]="null" disabled>
+            {{ halls?.length ? 'Select a hall' : 'No halls found for this cinema' }}
+          </option>
+          <option *ngFor="let hall of halls" [ngValue]="hall.id">
+            Hall {{ hall.number }} — {{ hall.capacity }} seats
+          </option>
+        </select>
+        <div id="hall_help" class="error" *ngIf="showTimeForm.get('hallId')?.touched">
+          <span *ngIf="showTimeForm.get('hallId')?.errors?.['required']">Hall is required</span>
+        </div>
+      </ng-container>
+
+
+      <!-- Show Type -->
+      <label for="type_id">Show Type</label>
+      <select
+        id="type_id"
+        formControlName="typeId"
+        [class.invalid]="showTimeForm.get('typeId')?.touched && showTimeForm.get('typeId')?.invalid"
+        aria-describedby="type_help">
+        <option [ngValue]="null" disabled>Select a show type</option>
+        <option *ngFor="let t of showTypes" [ngValue]="t.id">{{ t.type }}</option>
+      </select>
+      <div id="type_help" class="error" *ngIf="showTimeForm.get('typeId')?.touched">
+        <span *ngIf="showTimeForm.get('typeId')?.errors?.['required']">Show type is required</span>
+      </div>
+
+      <!-- Show date & time -->
+      <label for="show_time">Show date & time</label>
+      <input
+        id="show_time"
+        type="datetime-local"
+        formControlName="showTime"
+        step="60"
+        [class.invalid]="showTimeForm.get('showTime')?.touched && showTimeForm.get('showTime')?.invalid"
+        aria-describedby="time_help" />
+      <div id="time_help" class="hint">Pick local date & time.</div>
+      <div class="error" *ngIf="showTimeForm.get('showTime')?.touched">
+        <span *ngIf="showTimeForm.get('showTime')?.errors?.['required']">Show time is required</span>
+        <span *ngIf="showTimeForm.get('showTime')?.errors?.['pastDateTime']">Show time cannot be in the past</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button type="submit" [disabled]="showTimeForm.invalid">Add Show Time</button>
+      </div>
+    </form>
+  </div>
+</main>

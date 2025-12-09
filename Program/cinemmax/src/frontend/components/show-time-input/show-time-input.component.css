@@ -1,0 +1,145 @@
+.main {
+  background-color: #040D2C;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; /* same overall width feel as your cinema form */
+}
+
+.showtime-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.showtime-box h2 {
+  margin-bottom: 10px;
+  color: black;
+  font-size: 22px;
+  text-align: center;
+}
+
+.showtime-box label {
+  font-weight: 500;
+  color: #333;
+}
+
+.showtime-box input,
+.showtime-box select,
+.showtime-box textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #eaf1ff;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+}
+
+.showtime-box select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #888 50%),
+                    linear-gradient(135deg, #888 50%, transparent 50%),
+                    linear-gradient(to right, #eaf1ff, #eaf1ff);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+                       calc(100% - 15px) calc(1em + 2px),
+                       0 0;
+  background-size: 5px 5px, 5px 5px, 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.hint {
+  color: #666;
+  font-size: 13px;
+  margin-top: -6px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.error span {
+  display: block;
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.showtime-box button {
+  background-color: #FF5722;
+  width: 100%;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+
+.showtime-box button:disabled {
+  background-color: #ffab91;
+  cursor: not-allowed;
+}
+
+.showtime-box button:hover:not(:disabled) {
+  background-color: #e64a19;
+}
+
+/* Responsive (same breakpoints as your cinema form) */
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+  }
+
+  .showtime-box {
+    padding: 20px 15px;
+  }
+
+  .showtime-box h2 {
+    font-size: 18px;
+  }
+
+  .showtime-box button {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 991px) {
+  .container {
+    width: 85%;
+  }
+
+  .showtime-box {
+    padding: 25px 20px;
+  }
+
+  .showtime-box h2 {
+    font-size: 20px;
+  }
+}

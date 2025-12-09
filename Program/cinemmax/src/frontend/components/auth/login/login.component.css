@@ -1,0 +1,104 @@
+/* Base Styles */
+main {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #040D2C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+}
+
+.login-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.login-box .error {
+  color: red;
+}
+
+.login-box h2 {
+  margin-bottom: 10px;
+  color: #111;
+  font-size: 24px;
+}
+
+.login-box label {
+  font-weight: 500;
+  color: #333;
+}
+
+.login-box input {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #eaf1ff;
+  font-size: 16px;
+}
+
+.login-box button {
+  background-color: #FF5722;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.login-box button:disabled {
+  background-color:#ffab91;
+}
+
+.login-box button:hover:not(:disabled) {
+  background-color: #e64a19;
+}
+
+.forgotPassword {
+  color: #e64a19;
+  text-decoration: none;
+}
+
+.register-link {
+  text-align: center;
+  color: #e64a19;
+  font-size: 16px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 991px) {
+  .login-box {
+    padding: 25px 20px;
+  }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+  .login-box {
+    padding: 20px 15px;
+  }
+
+  .login-box h2 {
+    font-size: 20px;
+  }
+}

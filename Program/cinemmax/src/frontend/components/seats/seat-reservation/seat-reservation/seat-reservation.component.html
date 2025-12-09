@@ -1,0 +1,188 @@
+<main class="setWidth">
+  <section class="reservation-container" *ngIf="showTimeDetails as d; else loading">
+    <!-- Header / Film title -->
+    <h2 class="film-title">
+      <i class="bi bi-film"></i>
+      {{ d.film.name }}
+    </h2>
+
+    <!-- Content -->
+    <div class="reservation-content">
+      <!-- Poster -->
+      <div class="poster-wrap">
+        <img class="poster" [src]="d.film.imageUrl" [alt]="d.film.name + ' poster'">
+      </div>
+
+      <!-- Details -->
+      <div class="details">
+        <!-- Film meta -->
+        <div class="block">
+          <h3 class="block-title"><i class="bi bi-info-circle"></i> Film details</h3>
+          <div class="kv">
+            <span class="label"><i class="bi bi-shield-check"></i> Age rate</span>
+            <span class="value">{{ d.film.ageRate }}+</span>
+          </div>
+          <div class="kv">
+            <span class="label"><i class="bi bi-star-fill"></i> IMDb</span>
+            <span class="value">{{ d.film.imdbRating }}</span>
+          </div>
+          <div class="kv">
+            <span class="label"><i class="bi bi-badge-hd"></i> Show type</span>
+            <span class="value type-pill">{{ d.showType.type }}</span>
+          </div>
+        </div>
+
+        <!-- Cinema / Hall -->
+        <div class="block">
+          <h3 class="block-title"><i class="bi bi-building"></i> Cinema & Hall</h3>
+          <div class="kv">
+            <span class="label"><i class="bi bi-geo-alt"></i> Location</span>
+            <span class="value">{{ d.cinema.location }}</span>
+          </div>
+          <div class="kv">
+            <span class="label"><i class="bi bi-ticket-perforated"></i> Cinema</span>
+            <span class="value">{{ d.cinema.name }}</span>
+          </div>
+          <div class="kv">
+            <span class="label"><i class="bi bi-door-closed"></i> Hall</span>
+            <span class="value">Hall {{ d.hall.number }}</span>
+          </div>
+        </div>
+
+        <!-- Date / Time -->
+        <div class="block">
+          <h3 class="block-title"><i class="bi bi-calendar-event"></i> Date & Time</h3>
+          <div class="kv">
+            <span class="label"><i class="bi bi-calendar3"></i> Date</span>
+            <span class="value">
+              {{ d.showTime | date:'EEEE, d. MMM y' }}
+            </span>
+          </div>
+          <div class="kv">
+            <span class="label"><i class="bi bi-clock"></i> Time</span>
+            <span class="value">
+              {{ d.showTime | date:'HH:mm' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seat selection section -->
+  <div class="seat-selection-container">
+    <!-- Seat controls -->
+    <div class="seat-controls">
+      <div class="seatNumberInput">
+        <span class="label">Select number of seats</span>
+
+        <div class="number-controls">
+          <button type="button" class="decrease" (click)="decreaseSeatNumber()">
+            <i class="bi bi-dash"></i>
+          </button>
+
+          <span class="value">{{ seatToBookNumber }}</span>
+
+          <button type="button" class="increase" (click)="increaseSeatNumber()">
+            <i class="bi bi-plus"></i>
+          </button>
+        </div>
+
+        <span class="maxSeats" *ngIf="seatToBookNumber === maxSeats">
+          Maximum ({{ maxSeats }}) seats selected.
+        </span>
+      </div>
+
+      <div class="refresh-button">
+        <button type="button" (click)="refreshSeats()" title="Refresh seats">
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
+      </div>
+    </div>
+
+    <p class="selected-count">Selected {{ selectedSeatsSum }} of {{ seatToBookNumber }}</p>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <div class="seat-sample available"></div>
+        <span>Available</span>
+      </div>
+      <div class="legend-item">
+        <div class="seat-sample selected"></div>
+        <span>Selected</span>
+      </div>
+      <div class="legend-item">
+        <div class="seat-sample reserved"></div>
+        <span>Reserved</span>
+      </div>
+    </div>
+
+   <!-- Cinema layout -->
+<div class="cinema-layout">
+  <div class="seats-container">
+    <!-- Screen now lives inside seats-container and above rows -->
+    <div class="screen-container">
+      <div class="cinema-screen">
+        <div class="screen-content">Screen</div>
+      </div>
+    </div>
+
+    <div *ngFor="let row of seatsRowMap | keyvalue : keepOrder; trackBy: trackByKey" class="seat-row">
+      <div class="row-label">{{ row.key }}</div>
+      <div class="row-seats" [style.--seats-count]="row.value.length">
+        <button class="seat"
+        (click)="onSeatClick(seat)"
+        *ngFor="let seat of row.value"
+        [ngClass]="{ 'reserved': seat.status === 'reserved', 'selected': seat.selected}"
+        [disabled]="seat.status === 'reserved'"
+        [attr.aria-label]="'Seat ' + row.key + seat.seatNumber">
+</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    <!-- Selected seats info -->
+    <div class="selected-seats-info" *ngIf="selectedSeats.length > 0">
+      <h3>Selected seats:</h3>
+      <div class="selected-list">
+        <span *ngFor="let s of selectedSeats; let last = last">
+          Row {{ s.rowLetter }}, Seat {{ s.seatNumber }}<span *ngIf="!last">, </span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Error messages -->
+    <div class="error-messages">
+      <span class="error" *ngIf="selectedSeatsSum > seatToBookNumber">
+        You've selected more than {{ seatToBookNumber }} seats! Please deselect some seats or increase the number of
+        seats.
+      </span>
+
+      <span class="error" *ngIf="selectedReservedSeats.length > 0">
+        You cannot select already reserved seats:
+        <span *ngFor="let s of selectedReservedSeats; let i = index">
+          {{ s.row }}{{ s.number }}<span *ngIf="i < selectedReservedSeats.length - 1">, </span>
+        </span>
+      </span>
+    </div>
+
+    <!-- Next button -->
+    <div class="action-buttons">
+      <button type="submit" class="next-button" (click)="next()"
+        [disabled]="selectedSeatsSum > seatToBookNumber || selectedSeatsSum === 0 || selectedSeatsSum !== seatToBookNumber || selectedReservedSeats.length > 0">
+        Next
+      </button>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <section class="reservation-container">
+      <p class="loading"><i class="bi bi-arrow-repeat"></i> Loading show details…</p>
+    </section>
+  </ng-template>
+</main>

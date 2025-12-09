@@ -1,0 +1,114 @@
+.main {
+  background-color: #040D2C;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.showtype-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.showtype-box h2 {
+  margin-bottom: 10px;
+  color: black;
+  font-size: 22px;
+  text-align: center;
+}
+
+.showtype-box label {
+  font-weight: 500;
+  color: #333;
+}
+
+.showtype-box input,
+.showtype-box textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #eaf1ff;
+  font-size: 16px;
+}
+
+.showtype-box .error {
+  color: red;
+  font-size: 14px;
+}
+
+.showtype-box button {
+  background-color: #FF5722;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.showtype-box button:disabled {
+  background-color: #ffab91;
+}
+
+.showtype-box button:hover:not(:disabled) {
+  background-color: #e64a19;
+}
+
+.error span {
+  display: block;
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+/* Responsive (same breakpoints as cinema form) */
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+  }
+
+  .showtype-box {
+    padding: 20px 15px;
+  }
+
+  .showtype-box h2 {
+    font-size: 18px;
+  }
+
+  .showtype-box button {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 991px) {
+  .container {
+    width: 85%;
+  }
+
+  .showtype-box {
+    padding: 25px 20px;
+  }
+
+  .showtype-box h2 {
+    font-size: 20px;
+  }
+}

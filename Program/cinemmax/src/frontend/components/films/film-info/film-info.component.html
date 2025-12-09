@@ -1,0 +1,182 @@
+<main class="mainCont">
+  <div class="setWidth filmDetails" *ngIf="film">
+
+    <!-- HEADER -->
+    <section class="filmHeader">
+      <img [src]="film.imageUrl" [alt]="film.name" />
+      <div class="textInfo">
+        <h1>{{ film.name }}</h1>
+        <p class="genre">{{ film.genre }}</p>
+        <p><strong>Duration:</strong> {{ film.duration }} min</p>
+        <p><strong>Age rating:</strong> {{ film.ageRate }}+</p>
+        @if (parseDate(film.cinemaReleaseDate) < currentDate) { <p><strong>IMDb rating:</strong> ⭐ {{ film.imdbRating
+          }}/10</p>
+          }
+          @else {
+          <p><strong>IMDb rating:</strong> ⭐ -</p>
+          }
+
+          <p><strong>In cinemas from:</strong> {{ film.cinemaReleaseDate | date }}</p>
+          <p><strong>Until:</strong> {{ film.cinemaEndDate | date }}</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="aboutSection" *ngIf="film.about">
+      <h2>About the Film</h2>
+      <p>{{ film.about }}</p>
+    </section>
+
+    <!-- DIRECTORS -->
+    <section class="peopleSection" *ngIf="film.directors?.length">
+      <div class="sectionHeader">
+        <h2>Director{{ film.directors.length > 1 ? 's' : '' }}</h2>
+        <span class="countBadge">{{ film.directors.length }}</span>
+      </div>
+
+      <!-- Pills -->
+      <ul class="pillList" aria-label="Directors">
+        <li class="pill" *ngFor="let d of film.directors">
+          <i class="bi bi-camera-video"></i>
+          <span class="pillText">
+            {{ d.name }} {{ d.surname }}
+          </span>
+        </li>
+      </ul>
+
+      <!-- Cards -->
+      <div class="peopleGrid">
+        <article class="personCard" *ngFor="let d of film.directors">
+          <div class="avatar" aria-hidden="true">
+            <span>{{ (d.name || d.surname || '?') | slice:0:1 }}</span>
+          </div>
+          <div class="personInfo">
+            <h3 class="personName">
+              {{ d.name }} {{ d.surname }}
+            </h3>
+            <p class="personRole">Director</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACTORS -->
+    <section class="peopleSection" *ngIf="film.actors?.length">
+      <div class="sectionHeader">
+        <h2>Cast</h2>
+        <span class="countBadge">{{ film.actors.length }}</span>
+      </div>
+
+      <!-- Pills -->
+      <ul class="pillList" aria-label="Cast">
+        <li class="pill" *ngFor="let a of film.actors">
+          <i class="bi bi-person"></i>
+          <span class="pillText">
+            {{ a.name }} {{ a.surname }}
+          </span>
+        </li>
+      </ul>
+
+      <!-- Cards -->
+      <div class="peopleGrid">
+        <article class="personCard" *ngFor="let a of film.actors">
+          <div class="avatar" aria-hidden="true">
+            <span>{{ (a.name || a.surname || '?') | slice:0:1 }}</span>
+          </div>
+          <div class="personInfo">
+            <h3 class="personName">
+              {{ a.name }} {{ a.surname }}
+            </h3>
+            <p class="personRole">Actor</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TRAILER -->
+    <section class="trailerSection" *ngIf="film.trailerUrl">
+      <h2>Trailer</h2>
+
+      <div class="videoWrap" *ngIf="film.trailerUrl | youtubeEmbedUrl as embedUrl; else fallback">
+        <iframe [src]="embedUrl" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="{{ film.name }} trailer">
+        </iframe>
+      </div>
+
+      <ng-template #fallback>
+        <p>
+          Something went wrong with a trailer.
+          <a [href]="film.trailerUrl" target="_blank" rel="noopener" class="openYoutubeBtn">
+            Open on YouTube
+          </a>
+        </p>
+      </ng-template>
+    </section>
+
+
+    <!-- <select class="dropdown" [(ngModel)]="selectedCinemmax" 
+    (ngModelChange)="cinemaService.setSelectedCinemmax($event)"
+    [compareWith]="compareCinema">
+      <option [ngValue]="null" disabled>Choose your Cinemmax</option>
+      <option *ngFor="let cinema of allCinemas; trackBy: trackById" [ngValue]="cinema">
+        {{ cinema.location }}
+      </option>
+    </select> -->
+
+
+
+    <select class="dropdown" id="cinema_select" [(ngModel)]="selectedCinemmaxName"
+      (ngModelChange)="cinemaService.setSelectedCinemaName($event)">
+      <option [ngValue]="null" disabled selected>Select Your Cinemmax</option>
+
+      <optgroup *ngFor="let group of groupedCinemas" [label]="group.location">
+        <option [value]="group.location">{{ group.location }} - All Cinemmaxes</option>
+
+        <option *ngFor="let cinema of group.cinemas" value="{{cinema.name}}">
+          {{ cinema.name }}
+        </option>
+      </optgroup>
+    </select>
+
+
+
+    <!-- SHOW TIMES (GROUPED BY DATE) -->
+    <section class="showtimes" *ngIf="selectedCinemmaxName">
+      <div class="empty" *ngIf="groupedShowTimes.length === 0"> There are no show times available for this Cinemmax.
+      </div>
+      <div class="st-day" *ngFor="let group of groupedShowTimes">
+
+        <!-- Date header -->
+        <h3 class="st-date">{{ group.dateLabel }}</h3>
+
+        <!-- Cards -->
+        <div *ngIf="group.items.length > 0">
+          <div class="st-card" *ngFor="let st of group.items" [class.past]="isPast(st.showTime)"
+            [routerLink]="['/seatReservation/', st.showId]">
+            <span class="st-time">{{ st.showTime | date:'HH:mm' }}</span>
+            <span class="st-type">{{ st.showType.type }}</span>
+            <span class="st-hall">Hall {{ st.hall.number }}</span>
+            <!-- <span class="st-cinema">{{ st.hall.cinemaLocation }}</span> -->
+            <span class="st-cinema">{{ st.hall.cinemaName }}</span>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!--  <ng-template #noShowTimes>
+        <span>There are not any show times available for this Cinemmax</span>
+      </ng-template> -->
+
+
+    </section>
+
+
+
+
+
+
+
+  </div>
+</main>

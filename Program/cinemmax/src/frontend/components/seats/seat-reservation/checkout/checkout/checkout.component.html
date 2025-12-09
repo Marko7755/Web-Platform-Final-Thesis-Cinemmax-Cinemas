@@ -1,0 +1,146 @@
+<main class="setWidth">
+  <section class="review-container">
+    <h2 class="page-title">
+      <i class="bi bi-receipt"></i>
+      Review & Pay
+    </h2>
+    @if (showTimeDetails) {
+    <div class="review-grid">
+      <!-- LEFT: Payment -->
+      <div class="col">
+        <div class="panel">
+          <h3 class="panel-title">
+            <i class="bi bi-credit-card-2-front"></i> Payment
+          </h3>
+
+          <form [formGroup]="paymentForm" class="form-stack" autocomplete="off" novalidate (submit)="payAndReserve()">
+            <!-- Card number -->
+            <div class="form-field">
+              <label for="cardNumber" class="label">
+                <i class="bi bi-credit-card"></i> Card number
+              </label>
+
+              <div class="input-wrap">
+                <input id="cardNumber" type="text" class="text-input" placeholder="1234 5678 9012 3456"
+                  inputmode="numeric" formControlName="cardNumber" autocapitalize="off" spellcheck="false"
+                  autocomplete="off" />
+                <i class="bi bi-check-circle-fill valid-ic"
+                  *ngIf="paymentForm.get('cardNumber')?.valid && paymentForm.get('cardNumber')?.touched"></i>
+              </div>
+
+              <!-- help slot keeps height steady -->
+              <div class="field-help">
+                <ng-container
+                  *ngIf="paymentForm.get('cardNumber')?.touched && paymentForm.get('cardNumber')?.invalid; else cardHint">
+                  <div class="err">
+                    <div *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">Card number is required.</div>
+                    <div
+                      *ngIf="paymentForm.get('cardNumber')?.errors?.['minlength'] || paymentForm.get('cardNumber')?.errors?.['maxlength']">
+                      Card number must be between 16 and 19 digits.
+                    </div>
+                    <div *ngIf="paymentForm.get('cardNumber')?.errors?.['pattern']">Digits only (0–9).</div>
+                  </div>
+                </ng-container>
+                <ng-template #cardHint>
+                  <p class="hint"><i class="bi bi-info-circle"></i> We accept most major cards.</p>
+                </ng-template>
+              </div>
+            </div>
+
+            <!-- Row: Exp + CVV -->
+            <div class="form-row">
+              <!-- Expiration -->
+              <div class="form-field">
+                <label for="expDate" class="label">
+                  <i class="bi bi-calendar-event"></i> Expiration
+                </label>
+                <div class="input-wrap">
+                  <input id="expDate" type="text" class="text-input" placeholder="MM/YY" maxlength="5"
+                    inputmode="numeric" formControlName="exp" autocomplete="off" autocapitalize="off" spellcheck="false"
+                    (input)="onExpiryInput($event)" />
+                </div>
+
+                <div class="field-help">
+                  <ng-container
+                    *ngIf="paymentForm.get('exp')?.touched && paymentForm.get('exp')?.invalid; else expHint">
+                    <div class="err">
+                      <div *ngIf="paymentForm.get('exp')?.errors?.['required']">Expiration is required.</div>
+                      <div *ngIf="paymentForm.get('exp')?.errors?.['pattern']">Use format MM/YY (01–12).</div>
+                    </div>
+                  </ng-container>
+                  <ng-template #expHint>
+                    <p class="hint"><i class="bi bi-calendar2-check"></i> Format: <strong>MM/YY</strong></p>
+                  </ng-template>
+                </div>
+              </div>
+
+              <!-- CVV -->
+              <div class="form-field">
+                <label for="cvv" class="label">
+                  <i class="bi bi-shield-lock"></i> CVV
+                </label>
+                <div class="input-wrap">
+                  <input id="cvv" type="password" class="text-input" placeholder="***" maxlength="4" inputmode="numeric"
+                    formControlName="cvv" autocapitalize="off" spellcheck="false" autocomplete="off" />
+                </div>
+
+                <div class="field-help">
+                  <ng-container
+                    *ngIf="paymentForm.get('cvv')?.touched && paymentForm.get('cvv')?.invalid; else cvvHint">
+                    <div class="err">
+                      <div *ngIf="paymentForm.get('cvv')?.errors?.['required']">CVV is required.</div>
+                      <div
+                        *ngIf="paymentForm.get('cvv')?.errors?.['minlength'] || paymentForm.get('cvv')?.errors?.['maxlength']">
+                        CVV must be 3 or 4 digits.
+                      </div>
+                      <div *ngIf="paymentForm.get('cvv')?.errors?.['pattern']">Digits only (0–9).</div>
+                    </div>
+                  </ng-container>
+                  <ng-template #cvvHint>
+                    <p class="hint"><i class="bi bi-shield-check"></i> 3–4 digits on the back of your card.</p>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="actions">
+              <button type="button" class="btn cancel" title="Discard payment details" (click)="cancel()">
+                <i class="bi bi-x-circle"></i>
+                Cancel
+              </button>
+
+              <button type="submit" class="btn pay" [disabled]="paymentForm.invalid">
+                <i class="bi bi-lock-fill"></i> {{ isLoading ? 'Processing...' : 'Pay & Reserve'}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT: To pay -->
+      <aside class="summary col">
+        <div class="panel to-pay-panel">
+          <h3 class="panel-title"><i class="bi bi-cash-coin"></i> To pay</h3>
+
+          <div class="to-pay-amount">
+            <span class="currency">€</span>
+            <span class="amount">{{ showTimeDetails.pricing.finalPrice * seatsIdsToReserve.length }}</span>
+          </div>
+
+          <ul class="to-pay-list">
+            <li><i class="bi bi-ticket-perforated"></i> Tickets & fees included</li>
+            <li><i class="bi bi-shield-check"></i> Secure checkout</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+    }
+    <!--  <div class="spinner-container">S</div> -->
+    @if (isLoading) {
+    <div class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+    }
+  </section>
+</main>

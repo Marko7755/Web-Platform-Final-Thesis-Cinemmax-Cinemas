@@ -1,0 +1,421 @@
+/* LAYOUT BASICS */
+.setWidth {
+  flex: 0 0 60%;
+  margin: 0 auto;
+}
+
+.mainCont {
+  background-color: #040D2C;
+  color: white;
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.filmDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.dropdown {
+  background-color: #040D2C;
+  color: white;
+  border: 2px solid #FF5722;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+/* HEADER */
+.filmHeader {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.filmHeader img {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+  object-fit: cover;
+}
+
+.textInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: center;
+}
+
+.textInfo h1 {
+  font-size: 3rem;
+  color: #FF5722;
+  margin-bottom: 10px;
+}
+
+.genre {
+  font-style: italic;
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+.textInfo p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.textInfo p strong {
+  color: #FFB74D;
+}
+
+.dropdown {
+  background-color: #040D2C;
+  color: white;
+  border: 2px solid #FF5722;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 40%;
+}
+
+.st-card.past {
+  background-color: #444;
+  color: #aaa;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* .st-card.past:hover {
+  background-color: #444;
+} */
+
+
+/* SECTIONS */
+.aboutSection,
+.trailerSection,
+.peopleSection {
+  margin-top: 10px;
+}
+
+.aboutSection h2,
+.trailerSection h2,
+.peopleSection h2 {
+  color: #FF5722;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.aboutSection p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+/* Trailer */
+.videoWrap {
+  position: relative;
+  width: 100%;
+  max-width: 980px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 16:9 responsive iframe */
+.videoWrap::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%;
+}
+
+.videoWrap iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* PEOPLE SECTIONS (Directors / Cast) */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.countBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  background: rgba(255, 183, 77, 0.15);
+  color: #FFB74D;
+  border: 1px solid rgba(255, 183, 77, 0.35);
+}
+
+/* Pills (quick list) */
+.pillList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(19, 55, 180, 0.15);
+  border: 1px solid rgba(19, 55, 180, 0.35);
+  color: #d9e1ff;
+  font-size: 0.95rem;
+  line-height: 1;
+  backdrop-filter: blur(2px);
+}
+
+.pill i {
+  font-size: 1rem;
+}
+
+/* Grid of person cards */
+.peopleGrid {
+  --min: 220px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--min), 1fr));
+  gap: 14px;
+}
+
+.personCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(19, 55, 180, 0.16), rgba(4, 13, 44, 0.6));
+  border: 1px solid rgba(19, 55, 180, 0.35);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+}
+
+/* Simple generated avatar */
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1337B4 0%, #0b1d66 65%, #07123e 100%);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.06);
+}
+
+.personInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.personName {
+  font-size: 1.05rem;
+  margin: 0;
+  color: #ffffff;
+}
+
+.personRole {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #A9B3D1;
+}
+
+.showtimes {
+  display: grid;
+  gap: 28px;
+  margin-top: 10px;
+}
+
+.st-day {
+  display: grid;
+  gap: 14px;
+}
+
+.st-date {
+  margin: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  color: #ffb74d;
+  /* matches your accent */
+  text-transform: uppercase;
+}
+
+/* grid of time cards */
+.st-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.st-type {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffb74d;
+  /* accent color to make it pop */
+  letter-spacing: 0.5px;
+}
+
+/* card */
+.st-card {
+  grid-column: span 4;
+  /* 3 per row on desktop */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 12px;
+  border-radius: 10px;
+  background: #0a1c4b;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.st-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  background: #10245b;
+}
+
+.st-time {
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.st-hall {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.empty {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  text-align: center;
+
+  color: #555;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  border: 2px dashed #ccc;
+  border-radius: 0.75rem;
+  background-color: #f9f9f9;
+}
+
+
+/* ====================== RESPONSIVE ====================== */
+
+/* Tablet View */
+@media (min-width: 601px) and (max-width: 991px) {
+  .setWidth {
+    flex: 0 0 85%;
+  }
+
+  .filmHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .textInfo {
+    align-items: center;
+  }
+
+  .textInfo h1 {
+    font-size: 2.5rem;
+  }
+
+  .st-card {
+    grid-column: span 6;
+  }
+
+.dropdown {
+  width: 50%;
+}
+
+}
+
+/* Phone View */
+@media (max-width: 600px) {
+  .setWidth {
+    flex: 0 0 95%;
+  }
+
+  .filmHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .filmHeader img {
+    max-width: 100%;
+  }
+
+  .textInfo {
+    align-items: center;
+  }
+
+  .textInfo h1 {
+    font-size: 2rem;
+  }
+
+  .textInfo p {
+    font-size: 1rem;
+  }
+
+  .aboutSection h2,
+  .trailerSection h2,
+  .peopleSection h2 {
+    font-size: 1.5rem;
+  }
+
+  .aboutSection p {
+    font-size: 1rem;
+  }
+
+  .st-card {
+    grid-column: span 12;
+  }
+
+  /* 1 per row */
+  .st-time {
+    font-size: 1.6rem;
+  }
+
+  .dropdown {
+  width: 100%;
+}
+
+}

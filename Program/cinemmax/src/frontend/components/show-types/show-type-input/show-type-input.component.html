@@ -1,0 +1,45 @@
+<main class="main">
+  <div class="container">
+    <form class="showtype-box" #f="ngForm" (ngSubmit)="submitShowType(f)">
+      <h2>Add Show Type</h2>
+
+      <!-- Show Type -->
+      <label for="type">Show Type</label>
+      <input
+        id="type"
+        type="text"
+        name="type"
+        placeholder="e.g. 3D, IMAX, 4D"
+        required
+        [(ngModel)]="showType.type"
+        #typeCtrl="ngModel"
+      />
+      <div class="error" *ngIf="typeCtrl.invalid && typeCtrl.touched">
+        <span *ngIf="typeCtrl.errors?.['required']">Show type is required</span>
+      </div>
+
+      <!-- Additional Price -->
+      <label for="additional_price">Additional Price</label>
+      <input
+        id="additional_price"
+        type="number"
+        name="additional_price"
+        placeholder="e.g. 5.0"
+        min="0"
+        step="0.1"
+        required
+        pattern="^[0-9]+(\.[0-9])?$"
+        [(ngModel)]="showType.additionalPrice"
+        #priceCtrl="ngModel"
+      />
+      <div class="error" *ngIf="priceCtrl.invalid && priceCtrl.touched">
+        <span *ngIf="priceCtrl.errors?.['required']">Additional price is required</span>
+        <span *ngIf="priceCtrl.errors?.['pattern']">
+          Additional price must be a number with at most one decimal (e.g. 5 or 4.5)
+        </span>
+      </div>
+
+      <button type="submit" [disabled]="f.invalid">Add Show Type</button>
+    </form>
+  </div>
+</main>

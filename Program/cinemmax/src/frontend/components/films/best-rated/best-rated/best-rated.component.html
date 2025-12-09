@@ -1,0 +1,28 @@
+<main>
+    <section class="setWidth">
+        <section class="filmsContainer">
+            <div class="film" *ngFor="let f of bestRatedFilms">
+                <a [routerLink]="['/filmInfo/', f.id]">
+                    <div class="poster-wrap">
+                        <img class="poster" [src]="f.imageUrl" [alt]="f.name" />
+                        <span class="imdb-badge" title="IMDb rating">{{ f.imdbRating }}</span>
+                    </div>
+
+                    <p class="film-name">{{ f.name }}</p>
+                </a>
+                @if (currentUser) {
+                <div class="film-actions" *ngIf="currentUser.role === 'admin'">
+                    <i [routerLink]="['/filmEdit/', f.id]" class="bi bi-pencil-square edit-icon"></i>
+                    <i [routerLink]="['/showTimeInput/', f.id]" class="bi bi-film film-icon"></i>
+                    <i class="bi bi-trash delete-icon" (click)="deleteFilm(f.id!)"></i>
+                </div>
+                }
+
+            </div>
+
+        </section>
+        @if (bestRatedFilms.length === 0) {
+        <p class="no-films-message">No films available.</p>
+        }
+    </section>
+</main>

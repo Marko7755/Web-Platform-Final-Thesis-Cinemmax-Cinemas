@@ -1,0 +1,64 @@
+<main class="main">
+  <div class="container">
+    <form class="hall-box" [formGroup]="hallForm" (ngSubmit)="submitHall()">
+      <h2>Add New Hall</h2>
+
+      <!-- Cinema select (grouped by location) -->
+      <label for="cinema_select">Cinema</label>
+      <select id="cinema_select" formControlName="cinemaId"
+        [class.invalid]="hallForm.get('cinemaId')?.touched && hallForm.get('cinemaId')?.invalid"
+        aria-describedby="cinema_help">
+        <option value="" disabled selected>Select a cinema</option>
+
+        <optgroup *ngFor="let group of groupedCinemas" [label]="group.location">
+          <option *ngFor="let cinema of group.cinemas" [ngValue]="cinema.id">
+            {{ cinema.name }}
+          </option>
+        </optgroup>
+      </select>
+      <div class="error" *ngIf="hallForm.get('cinemaId')?.touched">
+        <span *ngIf="hallForm.get('cinemaId')?.errors?.['required']">
+          Cinema is required
+        </span>
+      </div>
+
+      <!-- Hall number 
+       input mode - for mobile screens to open numeric keyboard-->
+      <label for="hall_number">Hall Number</label>
+      <input id="hall_number" type="number" inputmode="numeric" placeholder="e.g. 1" formControlName="hallNumber"
+        [class.invalid]="hallForm.get('hallNumber')?.touched && hallForm.get('hallNumber')?.invalid" />
+      <div class="error" *ngIf="hallForm.get('hallNumber')?.touched">
+        <span *ngIf="hallForm.get('hallNumber')?.errors?.['required']">
+          Hall number is required
+        </span>
+        <span *ngIf="hallForm.get('hallNumber')?.errors?.['min']">
+          Hall number must be at least 1
+        </span>
+        <span *ngIf="hallForm.get('hallNumber')?.errors?.['pattern']">
+          Only whole numbers are allowed
+        </span>
+      </div>
+
+      <!-- Capacity -->
+      <label for="capacity">Capacity</label>
+      <input id="capacity" type="number" inputmode="numeric" placeholder="e.g. 150" formControlName="capacity"
+        [class.invalid]="hallForm.get('capacity')?.touched && hallForm.get('capacity')?.invalid" />
+      <div class="error" *ngIf="hallForm.get('capacity')?.touched">
+        <span *ngIf="hallForm.get('capacity')?.errors?.['required']">
+          Capacity is required
+        </span>
+        <span *ngIf="hallForm.get('capacity')?.errors?.['min']">
+          Capacity must be at least 1
+        </span>
+        <span *ngIf="hallForm.get('capacity')?.errors?.['max']">
+          Capacity is too large (max 1000)
+        </span>
+        <span *ngIf="hallForm.get('capacity')?.errors?.['pattern']">
+          Only whole numbers are allowed
+        </span>
+      </div>
+
+      <button type="submit" [disabled]="hallForm.invalid">Add Hall</button>
+    </form>
+  </div>
+</main>

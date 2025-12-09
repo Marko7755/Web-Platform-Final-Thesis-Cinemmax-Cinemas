@@ -1,0 +1,37 @@
+<main class="main">
+    <div class="container">
+        <form class="cinema-box" [formGroup]="cinemaForm" (ngSubmit)="submitCinema()">
+            <h2>Add New Cinema</h2>
+
+            <label for="cinema_location">Location</label>
+            <input id="cinema_location" type="text" formControlName="location" placeholder="e.g. Zagreb" />
+            <div class="error" *ngIf="cinemaForm.get('location')?.touched">
+                <span *ngIf="cinemaForm.get('location')?.errors?.['required']">
+                    Location is required
+                </span>
+                <span *ngIf="cinemaForm.get('location')?.errors?.['whitespace']">
+                    Location cannot be only spaces
+                </span>
+                <span *ngIf="cinemaForm.get('location')?.errors?.['pattern']">
+                    Location must contain only letters and spaces
+                </span>
+            </div>
+
+            <label for="cinema_name">Name</label>
+            <input id="cinema_name" type="text" formControlName="name" placeholder="e.g. Cinemmax Arena" />
+            <div class="error" *ngIf="cinemaForm.get('name')?.touched">
+                <span *ngIf="cinemaForm.get('name')?.errors?.['required']">
+                    Name is required
+                </span>
+                <span *ngIf="cinemaForm.get('name')?.errors?.['whitespace']">
+                    Name cannot be only spaces
+                </span>
+                <span *ngIf="cinemaForm.get('name')?.errors?.['pattern']">
+                    Name must contain only letters and spaces
+                </span>
+            </div>
+
+            <button type="submit" [disabled]="cinemaForm.invalid">Add Cinema</button>
+        </form>
+    </div>
+</main>

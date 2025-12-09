@@ -1,0 +1,87 @@
+<div class="container reservations-wrap">
+    <header class="page-head">
+        <h2 class="page-title">My Reservations</h2>
+        <span class="count-badge" *ngIf="reservations?.length as n">{{ n }}</span>
+    </header>
+    <p class="page-sub" *ngIf="reservations?.length">All your active and past bookings in one place.</p>
+
+    <div class="two-col">
+        <!-- ACTIVE -->
+        <section class="col">
+            <div class="section-head">
+                <h3 class="section-title">Active Reservations</h3>
+                <span class="section-count" *ngIf="activeReservations?.length as n">{{ n }}</span>
+            </div>
+
+            @if (!activeReservations.length) {
+            <div class="empty small">
+                <p>No active reservations.</p>
+            </div>
+            } @else {
+            <div class="grid">
+                @for (r of activeReservations; track r.id; let i = $index) {
+                <article class="res-card" [routerLink]="['/reservationFullDetails/', r.id]"
+                    [queryParams]="{ pos: i + 1 }">
+                    <header class="res-head">
+                        <h3 class="title">{{ r.filmName }}</h3>
+                        <span class="badge">#{{ i + 1 }}</span>
+                    </header>
+                    <div class="res-body">
+                        <div class="line">
+                            <i class="bi bi-calendar-event"></i>
+                            <span class="value">{{ r.showTime | date:'EEEE, d. MMM y' }}</span>
+                        </div>
+                        <div class="line">
+                            <i class="bi bi-armchair"></i>
+                            <span class="value">
+                                @if (r.numberOfTickets === 1) { {{ r.numberOfTickets }} seat } @else { {{
+                                r.numberOfTickets }} seats }
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                }
+            </div>
+            }
+        </section>
+
+        <!-- PAST -->
+        <section class="col">
+            <div class="section-head">
+                <h3 class="section-title">Past Reservations</h3>
+                <span class="section-count" *ngIf="pastReservations?.length as n">{{ n }}</span>
+            </div>
+
+            @if (!pastReservations.length) {
+            <div class="empty small">
+                <p>No past reservations.</p>
+            </div>
+            } @else {
+            <div class="grid">
+                @for (r of pastReservations; track r.id; let i = $index) {
+                <article class="res-card past" [routerLink]="['/reservationFullDetails/', r.id]"
+                    [queryParams]="{ pos: i + 1 }">
+                    <header class="res-head">
+                        <h3 class="title">{{ r.filmName }}</h3>
+                        <span class="badge">#{{ i + 1 }}</span>
+                    </header>
+                    <div class="res-body">
+                        <div class="line">
+                            <i class="bi bi-calendar-event"></i>
+                            <span class="value">{{ r.showTime | date:'EEEE, d. MMM y' }}</span>
+                        </div>
+                        <div class="line">
+                            <i class="bi bi-armchair"></i>
+                            <span class="value">
+                                @if (r.numberOfTickets === 1) { {{ r.numberOfTickets }} seat } @else { {{
+                                r.numberOfTickets }} seats }
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                }
+            </div>
+            }
+        </section>
+    </div>
+</div>

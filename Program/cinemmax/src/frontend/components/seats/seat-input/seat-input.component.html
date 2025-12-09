@@ -1,0 +1,126 @@
+<main class="main">
+  <div class="container setWidth">
+    <form class="hall-box" [formGroup]="seatForm" (ngSubmit)="submitSeat()">
+      <h2>Add Seats</h2>
+
+      <!-- Cinema select (grouped by location) -->
+      <label for="cinema_select">Cinema</label>
+      <select id="cinema_select" formControlName="cinemaId"
+        [class.invalid]="seatForm.get('cinemaId')?.touched && seatForm.get('cinemaId')?.invalid"
+        aria-describedby="cinema_help">
+        <option [ngValue]="null" disabled>Select a cinema</option>
+        <optgroup *ngFor="let group of groupedCinemas" [label]="group.location">
+          <option *ngFor="let cinema of group.cinemas" [ngValue]="cinema.id">
+            {{ cinema.location }} - {{ cinema.name }}
+          </option>
+        </optgroup>
+      </select>
+      <div class="error" *ngIf="seatForm.get('cinemaId')?.touched">
+        <span *ngIf="seatForm.get('cinemaId')?.errors?.['required']">Cinema is required</span>
+      </div>
+
+      <!-- Hall select -->
+      <ng-container *ngIf="halls$ | async as halls">
+        <label for="hall_select">Hall</label>
+        <select id="hall_select" formControlName="hallId"
+          [class.invalid]="seatForm.get('hallId')?.touched && seatForm.get('hallId')?.invalid"
+          aria-describedby="hall_help">
+          <option [ngValue]="null" disabled>
+            {{ halls?.length ? 'Select a hall' : 'No halls found for this cinema' }}
+          </option>
+          <option *ngFor="let hall of halls" [ngValue]="hall.id">
+            Hall {{ hall.number }} — {{ hall.capacity }} seats
+          </option>
+        </select>
+        <div class="error" *ngIf="seatForm.get('hallId')?.touched">
+          <span *ngIf="seatForm.get('hallId')?.errors?.['required']">Hall is required</span>
+        </div>
+      </ng-container>
+
+      <!-- Row range -->
+      <label for="start_row">Start Row (letter)</label>
+      <input id="start_row" type="text" maxlength="1" inputmode="text" placeholder="e.g. A" formControlName="startRow"
+        [class.invalid]="seatForm.get('startRow')?.touched && seatForm.get('startRow')?.invalid" />
+      <div class="error" *ngIf="seatForm.get('startRow')?.touched">
+        <span *ngIf="seatForm.get('startRow')?.errors?.['required']">Start row is required</span>
+        <span *ngIf="seatForm.get('startRow')?.errors?.['pattern']">Only a single letter A–Z</span>
+      </div>
+
+      <label for="end_row">End Row (letter)</label>
+      <input id="end_row" type="text" maxlength="1" inputmode="text" placeholder="e.g. C" formControlName="endRow"
+        [class.invalid]="seatForm.get('endRow')?.touched && seatForm.get('endRow')?.invalid" />
+      <div class="error" *ngIf="seatForm.get('endRow')?.touched">
+        <span *ngIf="seatForm.get('endRow')?.errors?.['required']">End row is required</span>
+        <span *ngIf="seatForm.get('endRow')?.errors?.['pattern']">Only a single letter A–Z</span>
+      </div>
+
+      <!-- Group-level error: end must be >= start -->
+      <div class="error" *ngIf="seatForm.hasError('rowOrder') &&
+                  (seatForm.get('startRow')?.touched || seatForm.get('endRow')?.touched)">
+        <span>End row must be greater than or equal to start row.</span>
+      </div>
+
+      <!-- Seats per row -->
+      <label for="seats_per_row">Seats per Row</label>
+      <input id="seats_per_row" type="number" inputmode="numeric" placeholder="e.g. 10" formControlName="seatsPerRow"
+        [class.invalid]="seatForm.get('seatsPerRow')?.touched && seatForm.get('seatsPerRow')?.invalid" />
+      <div class="error" *ngIf="seatForm.get('seatsPerRow')?.touched">
+        <span *ngIf="seatForm.get('seatsPerRow')?.errors?.['required']">Seats per row is required</span>
+        <span *ngIf="seatForm.get('seatsPerRow')?.errors?.['min']">Must be at least 1</span>
+        <span *ngIf="seatForm.get('seatsPerRow')?.errors?.['max']">Too many seats (max 20)</span>
+        <span *ngIf="seatForm.get('seatsPerRow')?.errors?.['pattern']">Only whole numbers</span>
+      </div>
+
+      <!-- Group-level error: capacity exceeded -->
+      <div class="error" *ngIf="seatForm.hasError('capacityExceeded') &&
+                  (seatForm.get('seatsPerRow')?.touched ||
+                   seatForm.get('startRow')?.touched ||
+                   seatForm.get('endRow')?.touched ||
+                   seatForm.get('hallId')?.touched)">
+        <span>
+          Number of seats ({{ seatForm.getError('capacityExceeded')?.totalSeats }})
+          exceeds hall capacity ({{ seatForm.getError('capacityExceeded')?.capacity }}).
+        </span>
+      </div>
+
+      <button type="submit" [disabled]="seatForm.invalid">Save Seats</button>
+    </form>
+
+
+
+    <ng-container *ngIf="(existingSeats$ | async) as ex">
+      <div class="hallPreview" *ngIf="
+         seatForm.get('hallId')?.value &&
+         (seatForm.get('seatsPerRow')?.value == null || +seatForm.get('seatsPerRow')?.value <= 20) &&
+         !seatForm.hasError('capacityExceeded')
+       ">
+
+        <div class="cinema-layout">
+          <div class="seats-container" [style.--cols]="+(seatForm.get('seatsPerRow')?.value || ex.cols || 1)">
+
+            <!-- Screen -->
+            <div class="screen-container">
+              <div class="cinema-screen">
+                <div class="screen-content">Screen</div>
+              </div>
+            </div>
+
+            <!-- Rows -->
+            <ng-container *ngFor="let row of (totalRows?.length ? totalRows : ex.rows)">
+              <div class="row-label">{{ row }}</div>
+
+              <div class="row-seats" [style.--seats-count]="+(seatForm.get('seatsPerRow')?.value || ex.cols || 1)">
+                <div class="seat"
+                  *ngFor="let _ of [].constructor(+(seatForm.get('seatsPerRow')?.value || ex.cols || 1)); index as j"
+                  [class.taken]="ex.set.has(row + '-' + (j + 1))">
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+  </div>
+</main>

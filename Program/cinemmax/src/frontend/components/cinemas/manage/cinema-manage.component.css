@@ -1,0 +1,140 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main.mainCont {
+    flex: 1 0 auto;
+    display: flex;
+}
+
+.setWidth {
+    flex: 0 0 60%;
+    margin: 0 auto;
+}
+
+.mainCont .content {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+
+.cinemaGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 24px 0 64px;
+}
+
+.cinemaItem {
+    flex: 0 0 calc(33.33% - 16.5px);
+    background: #061332;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.cinemaItem:hover {
+    background: #091a44;
+    border-color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .25);
+}
+
+.cinemaInfo {
+    display: grid;
+    gap: 8px;
+    min-height: 88px;
+}
+
+.cinemaName {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: .2px;
+    margin: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.cinemaLocation {
+    color: rgba(255, 255, 255, .85);
+    font-size: 1rem;
+    margin: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.cinemaActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 12px;
+}
+
+.cinema-edit-icon,
+.cinema-delete-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform .15s ease, color .2s ease, text-shadow .2s ease;
+}
+
+.cinema-edit-icon {
+    color: #4CAF50;
+}
+
+.cinema-edit-icon:hover {
+    color: #388E3C;
+    transform: scale(1.12);
+    text-shadow: 0 0 6px rgba(76, 175, 80, .45);
+}
+
+.cinema-delete-icon {
+    color: #F44336;
+}
+
+.cinema-delete-icon:hover {
+    color: #D32F2F;
+    transform: scale(1.12);
+    text-shadow: 0 0 6px rgba(244, 67, 54, .45);
+}
+
+@media (min-width: 601px) and (max-width: 991px) {
+    .setWidth {
+        flex: 0 0 85%;
+    }
+
+    .mainCont .content {
+        min-height: 60vh;
+    }
+
+    .cinemaItem {
+        flex: 0 0 calc(50% - 14.7px);
+    }
+}
+
+@media (max-width: 600px) {
+    .setWidth {
+        flex: 0 0 95%;
+    }
+
+    .mainCont .content {
+        min-height: 60vh;
+    }
+
+    .cinemaItem {
+        flex: 0 0 100%;
+    }
+}

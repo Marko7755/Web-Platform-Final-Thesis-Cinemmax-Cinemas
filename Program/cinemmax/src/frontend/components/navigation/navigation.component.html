@@ -1,0 +1,174 @@
+<!-- Secondary Nav -->
+<nav class="secondaryNav">
+  <div class="content setWidth">
+    <!-- LOGIN (vidljivo samo kad user NIJE ulogiran) -->
+    <button class="loginBtn" (click)="handleLoginLogout()" *ngIf="!isLoggedIn">
+      Login
+    </button>
+
+    <!-- USER DROPDOWN (vidljivo samo kad JE ulogiran) -->
+    <div class="dropdown user-dropdown" *ngIf="isLoggedIn" #userDropdown>
+      <!-- + template ref -->
+      <input type="checkbox" id="userMenuToggle" class="visually-hidden user-toggle" #userToggle />
+
+      <label class="user-trigger" for="userMenuToggle" aria-haspopup="true" aria-controls="userMenu">
+        <span class="hello">Hello</span>
+        <span class="username">{{ (userInfo$ | async)?.name }}</span>
+        <span class="caret">▼</span>
+      </label>
+
+      <div class="dropdown-content user-menu" id="userMenu" role="menu">
+        <a routerLink="myProfile" role="menuitem" (click)="closeUserMenu(userToggle, userDropdown)">
+          <i class="bi bi-person fs-5"></i> My Profile
+        </a>
+        <a routerLink="reservationMinDetails" role="menuitem" (click)="closeUserMenu(userToggle, userDropdown)">
+          <i class="bi bi-ticket-detailed"></i> My Reservations
+        </a>
+        <hr class="menu-sep" />
+        <button type="button" class="logout-link" role="menuitem"
+          (click)="closeUserMenu(userToggle, userDropdown); handleLoginLogout()">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ADMIN (ostaje netaknut) -->
+    <div class="dropdown" *ngIf="(currentUser | async)?.role === 'admin'" (click)="$event.stopPropagation()">
+      <button class="admin-link" type="button" (click)="toggleAdmin()" [attr.aria-expanded]="adminOpen"
+        aria-haspopup="true" aria-controls="adminMenu">
+        ADMINISTRATION <span class="caret">▼</span>
+      </button>
+
+      <div class="dropdown-content" id="adminMenu" role="menu" [class.open]="adminOpen">
+        <!-- Film -->
+        <div class="dropdown-sub">
+          <button class="submenu-title" type="button" (click)="toggleSub('film')"
+            [attr.aria-expanded]="openSub === 'film'" aria-controls="filmSub">
+            <span>Film</span><span class="chev">▼</span>
+          </button>
+          <div class="dropdown-sub-content" id="filmSub" role="menu" [class.open]="openSub === 'film'">
+            <a routerLink="/filmInput" role="menuitem" (click)="closeAll()">Input</a>
+          </div>
+        </div>
+
+        <!-- Cinema -->
+        <div class="dropdown-sub">
+          <button class="submenu-title" type="button" (click)="toggleSub('cinema')"
+            [attr.aria-expanded]="openSub === 'cinema'" aria-controls="cinemaSub">
+            <span>Cinema</span><span class="chev">▼</span>
+          </button>
+          <div class="dropdown-sub-content" id="cinemaSub" role="menu" [class.open]="openSub === 'cinema'">
+            <a routerLink="/cinemaInput" role="menuitem" (click)="closeAll()">Input</a>
+            <a routerLink="/cinemaManage" role="menuitem" (click)="closeAll()">Manage</a>
+          </div>
+        </div>
+
+        <!-- Hall -->
+        <div class="dropdown-sub">
+          <button class="submenu-title" type="button" (click)="toggleSub('hall')"
+            [attr.aria-expanded]="openSub === 'hall'" aria-controls="hallSub">
+            <span>Hall</span><span class="chev">▼</span>
+          </button>
+          <div class="dropdown-sub-content" id="hallSub" role="menu" [class.open]="openSub === 'hall'">
+            <a routerLink="/hallInput" role="menuitem" (click)="closeAll()">Input</a>
+          </div>
+        </div>
+
+        <!-- Seat -->
+        <div class="dropdown-sub">
+          <button class="submenu-title" type="button" (click)="toggleSub('seat')"
+            [attr.aria-expanded]="openSub === 'hall'" aria-controls="seatSub">
+            <span>Seat</span><span class="chev">▼</span>
+          </button>
+          <div class="dropdown-sub-content" id="seatSub" role="menu" [class.open]="openSub === 'seat'">
+            <a routerLink="/seatInput" role="menuitem" (click)="closeAll()">Input</a>
+          </div>
+        </div>
+
+        <!-- Show Type -->
+        <div class="dropdown-sub">
+          <button class="submenu-title" type="button" (click)="toggleSub('show_type')"
+            [attr.aria-expanded]="openSub === 'show_type'" aria-controls="show_typeSub">
+            <span>Show Type</span><span class="chev">▼</span>
+          </button>
+          <div class="dropdown-sub-content" id="show_typeSub" role="menu" [class.open]="openSub === 'show_type'">
+            <a routerLink="/showTypeInput" role="menuitem" (click)="closeAll()">Input</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Header -->
+<header class="header">
+  <div class="content setWidth">
+    <div class="logoCont">
+      <a routerLink="">
+        <img src="https://res.cloudinary.com/dqqjdinyg/image/upload/v1753728875/logoNovi_du5wfj.webp" alt="Logo"
+          class="logo" />
+      </a>
+    </div>
+
+    <div class="hamburger" (click)="toggleMenu()" aria-label="Open menu">
+      <i class="bi bi-list"></i>
+    </div>
+
+    <div class="linksCont">
+      <a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">FILMS</a>
+      <a routerLink="films/comingSoon" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">COMING
+        SOON</a>
+      <a routerLink="films/endingSoon" routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">EXPIRING SOON</a>
+      <a routerLink="films/topRated" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">TOP
+        FILMS</a>
+      <a routerLink="aboutUs" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">ABOUT US</a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile / Tablet Off-Canvas Sheet -->
+<nav class="hamburgerMenu" *ngIf="showMenu" (click)="closeAll()">
+  <div class="content setWidth" (click)="$event.stopPropagation()">
+    <button class="sheet-close" (click)="closeAll()" aria-label="Close menu">✕</button>
+
+    <a routerLink="" routerLinkActive="active-link" (click)="closeAll()">FILMS</a>
+    <a routerLink="films/comingSoon" routerLinkActive="active-link" (click)="closeAll()">COMING SOON</a>
+    <a routerLink="films/endingSoon" routerLinkActive="active-link" (click)="closeAll()">EXPIRING SOON</a>
+    <a routerLink="films/topRated" routerLinkActive="active-link" (click)="closeAll()">TOP FILMS</a>
+    <a routerLink="aboutUs" routerLinkActive="active-link" (click)="closeAll()">ABOUT US</a>
+
+    <!-- Admin block inside the mobile sheet (only for admins) -->
+    <!-- <ng-container *ngIf="(currentUser | async)?.role === 'admin'">
+      <hr />
+      <div class="mobile-admin">
+        <button class="mobile-admin-trigger" (click)="adminOpen = !adminOpen" [attr.aria-expanded]="adminOpen"
+          aria-controls="adminAccordion" type="button">
+          ADMINISTRATION
+          <span class="chev" [class.rot]="adminOpen">▼</span>
+        </button>
+
+        <div id="adminAccordion" class="mobile-accordion" [class.open]="adminOpen">
+          <button class="accordion-item" (click)="toggleSub('film')" [attr.aria-expanded]="openSub === 'film'">
+            Film
+            <span class="chev" [class.rot]="openSub === 'film'">▼</span>
+          </button>
+          <div class="accordion-panel" [class.open]="openSub === 'film'">
+            <a routerLink="/filmInput" (click)="closeAll()">Film input</a>
+          </div>
+
+          <button class="accordion-item" (click)="toggleSub('cinema')" [attr.aria-expanded]="openSub === 'cinema'">
+            Cinema
+            <span class="chev" [class.rot]="openSub === 'cinema'">▼</span>
+          </button>
+          <div class="accordion-panel" [class.open]="openSub === 'cinema'">
+            <a routerLink="/cinemaInput" (click)="closeAll()">Cinema input</a>
+            <a routerLink="/cinemaManage" (click)="closeAll()">Cinema manage</a>
+          </div>
+        </div>
+      </div>
+    </ng-container> -->
+  </div>
+</nav>

@@ -1,0 +1,75 @@
+html,
+body {
+  height: 100%;
+}
+
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #040D2C;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-content {
+  flex: 1 0 auto;
+  display: block;
+}
+
+
+a.active-link {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+
+/* Confirm button design when sending mail for password reset  */
+.swal-custom-confirm-btn {
+  background-color: #FF5722;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.swal-custom-confirm-btn:hover {
+  background-color: #e64a19;
+}
+
+
+.no-films-message {
+  margin: 40px auto;
+  padding: 20px 30px;
+  max-width: 400px;
+
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed #ff5722;
+  border-radius: 12px;
+
+  color: #ffb74d;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.no-films-message:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+}

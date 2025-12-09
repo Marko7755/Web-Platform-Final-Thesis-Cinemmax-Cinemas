@@ -1,0 +1,16 @@
+<main class="mainCont">
+  <div class="content setWidth">
+    <section class="cinemaGrid">
+      <div class="cinemaItem" *ngFor="let cinema of allCinemas">
+        <div class="cinemaInfo">
+          <h3 class="cinemaName">{{ cinema.name }}</h3>
+          <p class="cinemaLocation">{{ cinema.location }}</p>
+        </div>
+        <div class="cinemaActions">
+          <i *ngIf="(currentUser | async)?.role === 'admin'" class="bi bi-pencil-square cinema-edit-icon" [routerLink]="['/cinemaEdit', cinema.id]"></i>
+          <i *ngIf="(currentUser | async)?.role === 'admin'" class="bi bi-trash cinema-delete-icon" (click)="deleteCinema(cinema.id!)"></i>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

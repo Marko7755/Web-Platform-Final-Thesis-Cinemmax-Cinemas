@@ -1,0 +1,29 @@
+<!-- <app-navigation></app-navigation> -->
+
+<main class="main">
+    <div class="container">
+        <form class="login-box" [formGroup]="loginForm">
+        <h2>Login</h2>
+
+        <label for="email">Your Username</label>
+        <input type="text" id="email" formControlName="username" placeholder="user">
+        <div class="error" *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors">
+            <span *ngIf="loginForm.get('username')?.errors?.['required']">Username is required</span>
+            <span *ngIf="loginForm.get('username')?.errors?.['minlength']">Username must be at least 4 characters</span>
+            <span *ngIf="loginForm.get('username')?.errors?.['maxLength']">Username must be 20 characters max</span>
+        </div>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" placeholder="••••••">
+        <div class="error" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 4 characters</span>
+        </div>
+        <a routerLink="/emailInput" class="forgotPassword">Forgot password?</a>
+
+        <button type="submit" (click)="login()" [disabled]="loginForm.invalid">Sign in</button>
+
+        <a routerLink="/register" class="register-link">Register</a>
+        </form>
+    </div>
+</main> 

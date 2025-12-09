@@ -1,0 +1,178 @@
+.main {
+  background-color: #040D2C;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+input[type="file"] {
+  color: #333;
+  font-weight: 500;
+}
+
+
+.film-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.film-box h2 {
+  margin-bottom: 10px;
+  color: black;
+  font-size: 22px;
+  text-align: center;
+}
+
+.film-box label {
+  font-weight: 500;
+  color: #333;
+}
+
+.film-box input,
+.film-box textarea {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #eaf1ff;
+  font-size: 16px;
+}
+
+.film-box textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.film-box .error {
+  color: red;
+  font-size: 14px;
+}
+
+.film-box button {
+  background-color: #FF5722;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+
+.film-box button:disabled {
+  background-color: #ffab91;
+}
+
+.film-box button:hover:not(:disabled) {
+  background-color: #e64a19;
+}
+
+/* Additional styles for actor/director buttons */
+.film-box button[type="button"] {
+  width: fit-content;
+  align-self: flex-start;
+  padding: 8px 14px;
+  font-size: 15px;
+  background-color: #FF5722;
+}
+
+
+/* .film-box button[type="button"]:hover {
+  background-color: #125aa0;
+} */
+
+/* List of selected actors/directors */
+
+.selected-label {
+  font-weight: bold;
+  margin-bottom: 4px;
+  display: block;
+}
+
+
+.film-box ul.selected-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 8px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.film-box ul.selected-list li {
+  background-color: #eaf1ff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.film-box ul.selected-list li .remove-btn {
+  background: transparent;
+  border: none;
+  color: #FF5722;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+  padding: 0 4px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.film-box ul.selected-list li .remove-btn:hover {
+  color: #d84315;
+  transform: scale(1.2);
+}
+
+
+@media (max-width: 600px) {
+  .container {
+    width: 95%;
+  }
+
+  .film-box {
+    padding: 20px 15px;
+  }
+
+  .film-box h2 {
+    font-size: 18px;
+  }
+
+  .film-box button {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 991px) {
+  .container {
+    width: 85%;
+  }
+
+  .film-box {
+    padding: 25px 20px;
+  }
+
+  .film-box h2 {
+    font-size: 20px;
+  }
+}

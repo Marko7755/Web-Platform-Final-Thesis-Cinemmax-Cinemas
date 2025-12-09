@@ -1,0 +1,198 @@
+.main {
+    background-color: #040D2C;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 520px;
+}
+
+.hall-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 28px 24px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+    border: 1px solid #e9eefc;
+}
+
+.hall-box h2 {
+    margin: 0 0 6px 0;
+    color: #0d1b3d;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 0.2px;
+}
+
+.hall-box label {
+    font-weight: 600;
+    color: #1c2b6b;
+    font-size: 14px;
+}
+
+.hall-box input,
+.hall-box select,
+.hall-box textarea {
+    padding: 10px 12px;
+    border: 1px solid #d7e1ff;
+    border-radius: 10px;
+    background-color: #eef3ff;
+    font-size: 15px;
+    color: #0a163d;
+    outline: none;
+    transition: box-shadow .15s ease, border-color .15s ease, background-color .15s ease;
+}
+
+.hall-box input::placeholder,
+.hall-box textarea::placeholder {
+    color: #6170a8;
+}
+
+.hall-box input:focus,
+.hall-box select:focus,
+.hall-box textarea:focus {
+    border-color: #8aa7ff;
+    box-shadow: 0 0 0 3px rgba(102, 138, 255, 0.25);
+    background-color: #f6f9ff;
+}
+
+.hall-box input.invalid,
+.hall-box select.invalid {
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.25);
+    border-color: #ff4757;
+    background-color: #fff6f7;
+}
+
+.hall-box .error {
+    color: #d93025;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.error span {
+    display: block;
+    color: #d93025;
+    font-size: 13px;
+    margin-top: 2px;
+}
+
+.hall-box button {
+    background-color: #FF5722;
+    color: #fff;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: transform .08s ease, background-color .2s ease, box-shadow .2s ease;
+    box-shadow: 0 6px 14px rgba(255, 87, 34, 0.35);
+}
+
+.hall-box button:hover:not(:disabled) {
+    background-color: #e64a19;
+    transform: translateY(-1px);
+}
+
+.hall-box button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.hall-box button:disabled {
+    background-color: #ffb299;
+    box-shadow: none;
+}
+
+.hall-box select {
+    font-size: 14px;
+    padding: 8px 10px;
+    scrollbar-color: #c5d3ff #f2f6ff;
+    scrollbar-width: thin;
+    appearance: auto;
+    -webkit-appearance: menulist;
+}
+
+.hall-box select option {
+    font-size: 14px;
+    line-height: 1.25;
+    padding: 4px 8px;
+}
+
+.hall-box select optgroup {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1c2b6b;
+}
+
+.hall-box select optgroup option {
+    padding-left: 16px;
+}
+
+.hall-box select option:hover,
+.hall-box select option:checked {
+    background: #e7efff linear-gradient(#e7efff, #e7efff);
+    color: #0a163d;
+}
+
+.hall-box select::-webkit-scrollbar {
+    width: 10px;
+}
+
+.hall-box select::-webkit-scrollbar-track {
+    background: #f2f6ff;
+    border-radius: 8px;
+}
+
+.hall-box select::-webkit-scrollbar-thumb {
+    background: #c5d3ff;
+    border-radius: 8px;
+}
+
+.hall-box select::-webkit-scrollbar-thumb:hover {
+    background: #a9bcff;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 94%;
+    }
+
+    .hall-box {
+        padding: 22px 16px;
+    }
+
+    .hall-box h2 {
+        font-size: 20px;
+    }
+
+    .hall-box button {
+        font-size: 15px;
+        padding: 10px 12px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 991px) {
+    .container {
+        width: 86%;
+    }
+
+    .hall-box {
+        padding: 26px 20px;
+    }
+
+    .hall-box h2 {
+        font-size: 21px;
+    }
+}

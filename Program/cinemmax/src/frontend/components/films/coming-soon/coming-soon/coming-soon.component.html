@@ -1,0 +1,31 @@
+<main>
+    <section class="setWidth">
+        <section class="filmsContainer">
+            <div class="film" *ngFor="let f of comingSoonFilms">
+                <a [routerLink]="['/filmInfo/', f.id]">
+                    <div class="poster-wrap">
+                        <img class="poster" [src]="f.imageUrl" [alt]="f.name" />
+                    </div>
+
+                    <p class="film-name">{{ f.name }}</p>
+
+                    <div class="film-meta">
+                        <span class="start-badge" title="Start date">
+                            {{ f.startDate | date: 'dd.MM.yyyy.' }}
+                        </span>
+                    </div>
+                </a>
+
+
+                <div class="film-actions" *ngIf="(currentUser | async)?.role === 'admin'">
+                    <i [routerLink]="['/filmEdit/', f.id]" class="bi bi-pencil-square edit-icon"></i>
+                    <i [routerLink]="['/showTimeInput/', f.id]" class="bi bi-film film-icon"></i>
+                    <i class="bi bi-trash delete-icon" (click)="deleteFilm(f.id!)"></i>
+                </div>
+            </div>
+        </section>
+        @if (comingSoonFilms.length === 0) {
+        <p class="no-films-message">No films available.</p>
+        }
+    </section>
+</main>

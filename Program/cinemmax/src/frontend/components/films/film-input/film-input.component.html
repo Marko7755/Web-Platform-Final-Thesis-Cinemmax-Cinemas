@@ -1,0 +1,124 @@
+<main class="main">
+  <div class="container">
+    <form class="film-box" [formGroup]="filmForm" (ngSubmit)="submitFilm()">
+      <h2>Add New Film</h2>
+
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" placeholder="e.g. Inception" />
+      <div class="error" *ngIf="filmForm.get('name')?.touched && filmForm.get('name')?.invalid">
+        Name is required
+      </div>
+
+      <label for="genre">Genre</label>
+      <input id="genre" type="text" formControlName="genre" placeholder="e.g. Sci-Fi, Thriller" />
+      <div class="error" *ngIf="filmForm.get('genre')?.touched && filmForm.get('genre')?.invalid">
+        Genre is required
+      </div>
+
+      <label for="about">About</label>
+      <textarea id="about" formControlName="about" placeholder="Short summary of the film..."></textarea>
+      <div class="error" *ngIf="filmForm.get('about')?.touched && filmForm.get('about')?.invalid">
+        About is required
+      </div>
+
+      <label for="imdb_rating">IMDb Rating</label>
+      <input id="imdb_rating" type="number" step="0.1" formControlName="imdb_rating" placeholder="e.g. 8.7" min="0"
+        max="10" />
+      <div class="error" *ngIf="filmForm.get('imdb_rating')?.touched && filmForm.get('imdb_rating')?.invalid">
+        IMDb rating must be between 0 and 10
+      </div>
+
+
+      <label for="age_rate">Age Rate</label>
+      <input id="age_rate" type="number" formControlName="age_rate" placeholder="e.g. 12" />
+      <div class="error" *ngIf="filmForm.get('age_rate')?.touched && filmForm.get('age_rate')?.invalid">
+        Valid age rate is required
+      </div>
+
+      <label for="duration">Duration (min)</label>
+      <input id="duration" type="number" formControlName="duration" placeholder="e.g. 148" />
+      <div class="error" *ngIf="filmForm.get('duration')?.touched && filmForm.get('duration')?.invalid">
+        Duration must be greater than 0
+      </div>
+
+      <label for="image_url">Image URL</label>
+      <input id="image_url" type="url" formControlName="image_url" placeholder="https://res.cloudinary.com/...jpg" />
+      <div class="error" *ngIf="filmForm.get('image_url')?.touched && filmForm.get('image_url')?.invalid">
+        Valid image URL is required
+      </div>
+
+
+
+      <label for="trailer_url">Trailer URL</label>
+      <input id="trailer_url" type="url" formControlName="trailer_url" placeholder="https://youtube.com/watch?v=..." />
+      <div class="error" *ngIf="filmForm.get('trailer_url')?.touched && filmForm.get('trailer_url')?.invalid">
+        Valid trailer URL is required
+      </div>
+
+      <label for="cinema_release_date">Cinema Release Date</label>
+      <input id="cinema_release_date" type="date" formControlName="cinema_release_date" />
+      <div class="error"
+        *ngIf="filmForm.get('cinema_release_date')?.touched && filmForm.get('cinema_release_date')?.hasError('pastDate')">
+        Release date cannot be in the past
+      </div>
+      <div class="error"
+        *ngIf="filmForm.get('cinema_release_date')?.touched && filmForm.get('cinema_release_date')?.hasError('required')">
+        Release date is required
+      </div>
+
+      <label for="cinema_end_date">Cinema End Date</label>
+      <input id="cinema_end_date" type="date" formControlName="cinema_end_date" />
+      <div class="error"
+        *ngIf="filmForm.get('cinema_end_date')?.touched && filmForm.get('cinema_end_date')?.hasError('pastDate')">
+        End date cannot be in the past
+      </div>
+      <div class="error" *ngIf="filmForm.hasError('beforeStart') && filmForm.get('cinema_end_date')?.touched">
+        End date must be after release date
+      </div>
+      <div class="error"
+        *ngIf="filmForm.get('cinema_end_date')?.touched && filmForm.get('cinema_end_date')?.hasError('required')">
+        End date is required
+      </div>
+
+
+
+      <label for="actorInput">Add Actor (name surname)</label>
+      <input id="actorInput" type="text" [(ngModel)]="actorInput" [ngModelOptions]="{standalone: true}"
+        (input)="searchActors()" [attr.list]="'actorOptions'" name="actorInput" placeholder="e.g. Tom Hardy" />
+
+      <datalist id="actorOptions">
+        <option *ngFor="let suggestion of actorSuggestions" [value]="suggestion.name + ' ' + suggestion.surname">
+        </option>
+      </datalist>
+      <button type="button" (click)="addActor()">Add Actor</button>
+      <label *ngIf="selectedActors.length !== 0" class="selected-label">Selected actors:</label>
+      <ul class="selected-list">
+        <li *ngFor="let actor of selectedActors">{{ actor.name }} {{ actor.surname }}</li>
+      </ul>
+
+      <div class="error" *ngIf="filmForm?.errors?.['noActor']">
+        At least one actor is required
+      </div>
+
+
+      <label for="directorInput">Add Director (name surname)</label>
+      <input id="directorInput" type="text" [(ngModel)]="directorInput" [ngModelOptions]="{standalone: true}"
+        (input)="searchDirectors()" [attr.list]="'directorOptions'" name="directorInput"
+        placeholder="e.g. Christopher Nolan" />
+
+      <datalist id="directorOptions">
+        <option *ngFor="let suggestion of directorSuggestions" [value]="suggestion.name + ' ' + suggestion.surname">
+        </option>
+      </datalist>
+      <button type="button" (click)="addDirector()">Add Director</button>
+      <ul class="selected-list">
+        <li *ngFor="let director of selectedDirectors">{{ director.name }} {{ director.surname }}</li>
+      </ul>
+      <div class="error" *ngIf="filmForm?.errors?.['noDirector']">
+        At least one director is required
+      </div>
+
+      <button type="submit" [disabled]="filmForm.invalid">Add Film</button>
+    </form>
+  </div>
+</main>

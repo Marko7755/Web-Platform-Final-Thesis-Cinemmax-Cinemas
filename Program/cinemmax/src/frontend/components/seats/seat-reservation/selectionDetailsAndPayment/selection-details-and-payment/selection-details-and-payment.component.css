@@ -1,0 +1,248 @@
+/* Keep width consistent with the rest */
+.setWidth {
+    flex: 0 0 60%;
+    margin: 0 auto;
+}
+
+/* Container */
+.review-container {
+    max-width: 980px;
+    margin: 32px auto;
+    padding: 24px;
+    background: #0a1c2e;
+    border-radius: 16px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    color: #fff;
+}
+
+.page-title {
+    margin: 0 0 20px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    color: #ffb74d;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Grid */
+.review-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    /* main + summary */
+    gap: 24px;
+    align-items: start;
+}
+
+.col {
+    min-width: 0;
+}
+
+/* Stack utility for consistent vertical rhythm */
+.stack {
+    display: grid;
+    gap: 16px;
+}
+
+/* Panels */
+.panel {
+    background: #132840;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.panel-title {
+    margin: 0 0 12px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffb74d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Key-value rows */
+.kv {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #0f2135;
+    margin-bottom: 10px;
+}
+
+.kv:last-child {
+    margin-bottom: 0;
+}
+
+.kv.total {
+    background: #0d2a46;
+    border: 1px dashed #ffb74d99;
+}
+
+.label {
+    color: #b9c2cf;
+    font-weight: 500;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.value {
+    font-weight: 600;
+    color: #fff;
+}
+
+.type-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    background: #0f2135;
+}
+
+/* SUMMARY (right column) */
+.summary {
+    position: sticky;
+    /* keeps summary steady on desktop */
+    top: 16px;
+    display: grid;
+    gap: 16px;
+}
+
+.seats-panel .seats-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.seat-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    background: #0f2135;
+    border: 1px solid #21456d;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.muted {
+    color: #c9d3df;
+    opacity: .85;
+    margin-top: 4px;
+}
+
+/* Price */
+.total-value {
+    font-size: 1.2rem;
+    color: #ffdf9a;
+}
+
+/* Actions (inside price panel) */
+.actions {
+    margin-top: 14px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.btn {
+    appearance: none;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn.back {
+    background: #0f2135;
+    color: #cfe0f3;
+    border: 1px solid #21456d;
+}
+
+.btn.back:hover {
+    filter: brightness(1.1);
+}
+
+.btn.pay {
+    background: #FF5722;
+    color: #0a1c2e;
+}
+
+.btn.pay:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    color: #c9d3df;
+    opacity: .85;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 991px) {
+    .review-grid {
+        grid-template-columns: 1.5fr 1fr;
+        gap: 20px;
+    }
+
+    .kv {
+        grid-template-columns: 140px 1fr;
+    }
+}
+
+/* Phone */
+@media (max-width: 600px) {
+    .setWidth {
+        flex: 0 0 100%;
+        margin: 0;
+    }
+
+    .review-container {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .page-title {
+        font-size: 1.4rem;
+    }
+
+    .review-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .panel {
+        padding: 14px;
+    }
+
+    .kv {
+        grid-template-columns: 1fr;
+        gap: 6px;
+    }
+
+    .summary {
+        position: static;
+    }
+
+    /* no sticky on small screens */
+    .actions {
+        justify-content: stretch;
+    }
+
+    .btn {
+        flex: 1;
+        justify-content: center;
+    }
+}

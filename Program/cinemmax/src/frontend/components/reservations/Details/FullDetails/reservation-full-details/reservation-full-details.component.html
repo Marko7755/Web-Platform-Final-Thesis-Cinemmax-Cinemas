@@ -1,0 +1,74 @@
+<div class="details-wrap">
+    <article class="details-card" *ngIf="reservationDetails as d">
+        <header class="head">
+            <div class="title-wrap">
+                <i class="bi bi-film title-icon" aria-hidden="true"></i>
+                <h2 class="title">{{ d.filmName }}</h2>
+            </div>
+
+            <div class="meta">
+                <span class="badge type" title="Show type">{{ d.showType }}</span>
+                @if (reservationPosition) {
+                <span class="badge id" title="Reservation ID">#{{ reservationPosition }}</span>
+                }
+
+            </div>
+        </header>
+
+        <section class="info-grid">
+            <div class="info-item">
+                <div class="label">Showtime</div>
+                <div class="value">
+                    {{ d.showTime | date:'EEEE, d. MMM y, HH:mm' }}
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="label">Cinema</div>
+                <div class="value">
+                    {{ d.cinema.name }} ({{ d.cinema.location }})
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="label">Hall</div>
+                <div class="value">
+                    {{ d.hall.number }}
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="label">Final price</div>
+                <div class="value price">
+                    {{ d.finalPrice | currency:'EUR':'symbol':'1.2-2' }}
+                </div>
+            </div>
+
+            <div class="info-item">
+                <div class="label">Reserved at</div>
+                <div class="value">
+                    {{ d.reservationTime | date:'EEEE, d. MMM y, HH:mm' }}
+                </div>
+            </div>
+        </section>
+
+        <section class="seats">
+            <h3 class="section-title">
+                <i class="bi bi-grid-3x3-gap-fill" aria-hidden="true"></i>
+                Seats
+            </h3>
+
+            <div class="seat-groups">
+                <div class="seat-group" *ngFor="let row of seatsRowMap | keyvalue: keepOrder; trackBy: trackByKey">
+                    <div class="seat-row">Row {{ row.key }}</div>
+                    <div class="seat-numbers">
+                        <span *ngFor="let seat of row.value; let last = last">
+                            Seat {{ seat.seatNumber }}<span *ngIf="!last">, </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </article>
+</div>
