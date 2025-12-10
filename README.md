@@ -17,6 +17,11 @@ Windows example:
 
 setx JWT_SECRET "your-secret"
 
+MacOs example:
+
+export JWT_SECRET="your-secret"
+
+
 ✨ Features
 
 Browse movies, directors, actors, and cinemas
